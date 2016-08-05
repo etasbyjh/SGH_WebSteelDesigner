@@ -1,0 +1,89 @@
+/*SGH Red #b5121b
+  SGH Light Brown #beb29e
+  SGH Mid Brown #8f7d5c
+  SGH Dark Brown #5a471b
+  SGH Text Brown #5a471b
+*/
+
+html {
+    height: 100%;
+}
+body,
+#div_3dCanvas {
+    font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+    background-color: black;
+    margin: auto;
+    padding: 0;
+    height: 100%;
+}
+#leftInfo {
+    float: left;
+    position: fixed;
+    top: 4%;
+    left: 2%;
+}
+#modelStatusWindow {
+    height: 70px;
+    overflow-y: hidden;
+    opacity: 0.4;
+    transition: all .45s ease-in-out;
+}
+#modelStatusWindow:hover {
+    overflow-y: auto;
+}
+#modelStatus {
+    color: gainsboro;
+}
+#rightInfo {
+    float: right;
+    position: fixed;
+    top: 4%;
+    right: 2%;
+}
+#lowerUI {
+    left: 2%;
+    width: 96%;
+    height: 8%;
+    position: fixed;
+    bottom: 3%;
+}
+#SceneSetIcon,
+#EngineerSetIcon,
+#ArchSetIcon,
+#CostSetIcon,
+#drawVol,
+#drawVoid,
+#delete,
+#objectInfo,
+#send,
+#receive,
+#rightLogoImage {
+    transition: all .45s ease-in-out;
+}
+#SceneSetIcon:hover,
+#EngineerSetIcon:hover,
+#ArchSetIcon:hover,
+#CostSetIcon:hover,
+#drawVol:hover,
+#drawVoid:hover,
+#delete:hover,
+#objectInfo:hover,
+#send:hover,
+#receive:hover,
+#rightLogoImage:hover {
+    -webkit-transform: scale(1.2);
+    cursor: pointer;
+}
+#rightLogo {
+    width: 42px;
+    margin-left: 10px;
+}
+#sceneInfo {
+    font-size: 13px;
+    margin-top: 2px;
+    margin-bottom: 0;
+    padding-left: 58px;
+}
+.column {
+    text-align: center;
+}

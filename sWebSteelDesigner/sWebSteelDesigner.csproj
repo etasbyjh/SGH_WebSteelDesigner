@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DEC34B3D-240C-4822-915A-FD267714C704}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>sWebSteelDesigner</RootNamespace>
+    <AssemblyName>sWebSteelDesigner</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.1.2.3\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.1.2.3\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.1.2.3\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.1.2.3\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=1.2.3.246, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.1.2.3\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=1.2.3.490, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.1.2.3\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AskSGHservice.asmx" />
+    <Content Include="css\images\Ask.png" />
+    <Content Include="css\images\backFrame.png" />
+    <Content Include="css\images\Info.png" />
+    <Content Include="css\images\Layer-1.png" />
+    <Content Include="css\images\Layer-2.png" />
+    <Content Include="css\images\Layer-3.png" />
+    <Content Include="css\images\Layer-4.png" />
+    <Content Include="css\images\Layer-5.png" />
+    <Content Include="css\images\Layer-6.png" />
+    <Content Include="css\images\Layer-7.png" />
+    <Content Include="css\images\Layer-8.png" />
+    <Content Include="css\images\offGrid.png" />
+    <Content Include="css\images\onGrid.png" />
+    <Content Include="css\images\Refresh.png" />
+    <Content Include="css\images\remove.png" />
+    <Content Include="css\images\Rounded-Rectangle.png" />
+    <Content Include="css\images\Void.png" />
+    <Content Include="css\images\Volumn.png" />
+    <Content Include="css\styles.css" />
+    <Content Include="index.html" />
+    <Content Include="packages.config" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="public\jsonGeometry.js" />
+    <Content Include="public\mouseControl.js" />
+    <Content Include="public\pageControl.js" />
+    <Content Include="public\sWebGeometry.js" />
+    <Content Include="public\threejsControl.js" />
+    <Content Include="references\threejs\controls\DeviceOrientationControls.js" />
+    <Content Include="references\threejs\controls\EditorControls.js" />
+    <Content Include="references\threejs\controls\FirstPersonControls.js" />
+    <Content Include="references\threejs\controls\FlyControls.js" />
+    <Content Include="references\threejs\controls\OculusControls.js" />
+    <Content Include="references\threejs\controls\OrbitControls.js" />
+    <Content Include="references\threejs\controls\OrthographicTrackballControls.js" />
+    <Content Include="references\threejs\controls\PointerLockControls.js" />
+    <Content Include="references\threejs\controls\TrackballControls.js" />
+    <Content Include="references\threejs\controls\TransformControls.js" />
+    <Content Include="references\threejs\controls\VRControls.js" />
+    <Content Include="references\threejs\postprocessing\BloomPass.js" />
+    <Content Include="references\threejs\postprocessing\BokehPass.js" />
+    <Content Include="references\threejs\postprocessing\DotScreenPass.js" />
+    <Content Include="references\threejs\postprocessing\EffectComposer.js" />
+    <Content Include="references\threejs\postprocessing\FilmPass.js" />
+    <Content Include="references\threejs\postprocessing\GlitchPass.js" />
+    <Content Include="references\threejs\postprocessing\MaskPass.js" />
+    <Content Include="references\threejs\postprocessing\RenderPass.js" />
+    <Content Include="references\threejs\postprocessing\SavePass.js" />
+    <Content Include="references\threejs\postprocessing\ShaderPass.js" />
+    <Content Include="references\threejs\postprocessing\TexturePass.js" />
+    <Content Include="references\threejs\renderers\CanvasRenderer.js" />
+    <Content Include="references\threejs\renderers\CSS2DRenderer.js" />
+    <Content Include="references\threejs\renderers\CSS3DRenderer.js" />
+    <Content Include="references\threejs\renderers\CSS3DStereoRenderer.js" />
+    <Content Include="references\threejs\renderers\Projector.js" />
+    <Content Include="references\threejs\renderers\RaytracingRenderer.js" />
+    <Content Include="references\threejs\renderers\RaytracingWorker.js" />
+    <Content Include="references\threejs\renderers\SoftwareRenderer.js" />
+    <Content Include="references\threejs\renderers\SVGRenderer.js" />
+    <Content Include="references\threejs\shaders\BasicShader.js" />
+    <Content Include="references\threejs\shaders\BleachBypassShader.js" />
+    <Content Include="references\threejs\shaders\BlendShader.js" />
+    <Content Include="references\threejs\shaders\BokehShader.js" />
+    <Content Include="references\threejs\shaders\BokehShader2.js" />
+    <Content Include="references\threejs\shaders\BrightnessContrastShader.js" />
+    <Content Include="references\threejs\shaders\ColorCorrectionShader.js" />
+    <Content Include="references\threejs\shaders\ColorifyShader.js" />
+    <Content Include="references\threejs\shaders\ConvolutionShader.js" />
+    <Content Include="references\threejs\shaders\CopyShader.js" />
+    <Content Include="references\threejs\shaders\DigitalGlitch.js" />
+    <Content Include="references\threejs\shaders\DOFMipMapShader.js" />
+    <Content Include="references\threejs\shaders\DotScreenShader.js" />
+    <Content Include="references\threejs\shaders\EdgeShader.js" />
+    <Content Include="references\threejs\shaders\EdgeShader2.js" />
+    <Content Include="references\threejs\shaders\FilmShader.js" />
+    <Content Include="references\threejs\shaders\FocusShader.js" />
+    <Content Include="references\threejs\shaders\FresnelShader.js" />
+    <Content Include="references\threejs\shaders\FXAAShader.js" />
+    <Content Include="references\threejs\shaders\HorizontalBlurShader.js" />
+    <Content Include="references\threejs\shaders\HorizontalTiltShiftShader.js" />
+    <Content Include="references\threejs\shaders\HueSaturationShader.js" />
+    <Content Include="references\threejs\shaders\KaleidoShader.js" />
+    <Content Include="references\threejs\shaders\LuminosityShader.js" />
+    <Content Include="references\threejs\shaders\MirrorShader.js" />
+    <Content Include="references\threejs\shaders\NormalMapShader.js" />
+    <Content Include="references\threejs\shaders\OceanShaders.js" />
+    <Content Include="references\threejs\shaders\RGBShiftShader.js" />
+    <Content Include="references\threejs\shaders\SepiaShader.js" />
+    <Content Include="references\threejs\shaders\SSAOShader.js" />
+    <Content Include="references\threejs\shaders\TechnicolorShader.js" />
+    <Content Include="references\threejs\shaders\TriangleBlurShader.js" />
+    <Content Include="references\threejs\shaders\UnpackDepthRGBAShader.js" />
+    <Content Include="references\threejs\shaders\VerticalBlurShader.js" />
+    <Content Include="references\threejs\shaders\VerticalTiltShiftShader.js" />
+    <Content Include="references\threejs\shaders\VignetteShader.js" />
+    <Content Include="references\threejs\three.min%28new%29.js" />
+    <Content Include="references\threejs\three.min.js" />
+    <Content Include="scripts\ai.0.15.0-build58334.js" />
+    <Content Include="scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AskSGHservice.asmx.cs">
+      <DependentUpon>AskSGHservice.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>58408</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:58408/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

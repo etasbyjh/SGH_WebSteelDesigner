@@ -1,0 +1,97 @@
+/*SGH Red #b5121b
+  SGH Light Brown #beb29e
+  SGH Mid Brown #8f7d5c
+  SGH Dark Brown #5a471b
+  SGH Text Brown #5a471b
+*/
+
+html {
+    height: 100%;
+}
+body,
+#div_3dCanvas {
+    font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+    background-color: black;
+    margin: auto;
+    padding: 0;
+    height: 100%;
+}
+#leftIconFrame {
+    background: url(images/backFrame.png);
+    height: 652px;
+    width: 102px;
+    position: fixed;
+    top: 150px;
+    left: 33px;
+    text-align: center;
+}
+#rightUI {
+    background-color: aliceblue;
+    position: absolute;
+    width: 80%;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    margin: -40% 0 0 -40%;
+    border-radius: 10px;
+}
+.oriIcon {
+    height: 60px;
+    width: 65px;
+    display: inline-block;
+    margin-top: 15%;
+}
+.oriIcon:hover {
+    cursor: pointer;
+}
+.oriIcon:active {
+    transform: scale(0.95);
+}
+#drawVol {
+    background: url(images/Volumn.png);
+}
+#drawVol:hover {
+    background: url(images/Layer-1.png);
+}
+#drawVoid {
+    background: url(images/Void.png);
+}
+#drawVoid:hover {
+    background: url(images/Layer-2.png);
+}
+#gridOn {
+    background: url(images/onGrid.png);
+}
+#gridOn:hover {
+    background: url(images/Layer-3.png);
+}
+#gridOff {
+    background: url(images/offGrid.png);
+}
+#gridOff:hover {
+    background: url(images/Layer-4.png);
+}
+#delete {
+    background: url(images/remove.png);
+}
+#delete:hover {
+    background: url(images/Layer-7.png);
+}
+#objectInfo {
+    background: url(images/Info.png);
+}
+#objectInfo:hover {
+    background: url(images/Layer-8.png);
+}
+#send {
+    background: url(images/Ask.png);
+}
+#send:hover {
+    background: url(images/Layer-5.png);
+}
+#receive {
+    background: url(images/Refresh.png);
+}
+#receive:hover {
+    background: url(images/Layer-6.png);
+}
