@@ -18,7 +18,7 @@ function JsonMesh() {
     this.cenZ = 0.0;
     this.scaleX = 1.0;
     this.scaleY = 1.0;
-    this.scaleZ = 1.0;
+    this.scaleZ = 1.0;  
 }
 
 function JsonVertex() {
