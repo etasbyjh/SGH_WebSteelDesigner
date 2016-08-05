@@ -24,6 +24,8 @@ namespace sWebSteelDesigner
         {
             string path = @"C:\Users\jlee\Documents\SGHWebApplications\sWebSteelDesigner\fromWeb.json";
             File.WriteAllText(path, jsonStr);
+            object test = "";
+
             return "received";
         }
     }
