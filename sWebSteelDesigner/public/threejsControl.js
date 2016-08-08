@@ -97,9 +97,9 @@ function Initiate3DView() {
     renderer.domElement.addEventListener('mousemove', onDocumentMouseMove, false);
     renderer.domElement.addEventListener('mousedown', onDocumentMouseDown, false);
     renderer.domElement.addEventListener('mouseup', onDocumentMouseUp, false);
-
-    //resizing why here?
-    //after resizing mouse location issue
+    //
+    //    //resizing why here?
+    //    //after resizing mouse location issue
     window.addEventListener('resize', onWindowResized, false);
 }
 
@@ -277,7 +277,7 @@ function SetBaseGrid(size, step) {
 function onWindowResized() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    //renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 //function DisplayGUI() {

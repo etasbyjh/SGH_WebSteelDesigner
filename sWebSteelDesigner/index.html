@@ -7,11 +7,16 @@
     <script src="https://code.jquery.com/jquery-3.1.0.js" integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk=" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="css/styles.css" type="text/css">
+
     <link rel="stylesheet" type="text/css" href="references/semantic/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="css/range.css">
 
+
+
     <script src="references/semantic/dist/semantic.min.js"></script>
     <script src="references/semantic/range.js"></script>
+
+
     <script type="text/javascript" src="references/threejs/three.min.js"></script>
     <script type="text/javascript" src="references/threejs/controls/TrackballControls.js"></script>
     <script type="text/javascript" src="references/threejs/controls/OrbitControls.js"></script>
@@ -21,6 +26,7 @@
     <script type="text/javascript" src="public/sWebGeometry.js"></script>
     <script type="text/javascript" src="public/jsonGeometry.js"></script>
     <script type="text/javascript" src="public/threejsControl.js"></script>
+
 
 </head>
 
@@ -260,9 +266,9 @@
                         <p>Please don't worry! We will not send any spam to you. If you don't want to send us any information, you can click submit with blanks.</p>
 
 
-                        <div class="field" style="margin-top:40px">
+                        <div class="field" style="margin-top:50px">
                             <div class="field">
-                                <label>Your Occupation</label>
+                                <div class="field">Your Occupation</div>
                                 <div class="ui fluid selection dropdown" id="clientOccupation">
                                     <input type="hidden" name="Your Occupation">
                                     <div class="default text">Your Occupation</div>
@@ -281,23 +287,30 @@
 
                         <div class="field">
                             <div class="field">
-                                <label>Name of Your Firm</label>
-                                <div class="ui input focus">
-                                    <input type="text" />
-                                </div>
+                                <div class="field">Name of Your Firm</div>
+                                <input type="text" placeholder="Name of Your Firm" />
+
                             </div>
                         </div>
 
                         <div class="field">
+                            <div class="field">Your Email Address</div>
+                            <input type="text" placeholder="Your Email Address" />
+
+                        </div>
+
+                        <div class="two fields">
                             <div class="field">
-                                <label>Your Name</label>
-                                <div class="ui input focus">
-                                    <input type="text" />
-                                </div>
+                                <div class="field">Your First Name</div>
+                                <input type="text" placeholder="First Name" />
+                            </div>
+                            <div class="field">
+                                <div class="field">Your Last Name</div>
+                                <input type="text" placeholder="Last Name" />
                             </div>
                         </div>
 
-                        <button class="ui button" type="submit">Submit</button>
+                        <button class="ui orange inverted button" type="submit" style="margin-top:20px">Submit</button>
                     </form>
 
 

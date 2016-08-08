@@ -69,6 +69,7 @@ $(document).ready(function () {
         }).modal('show');
 
         ActivateClientInfoForm();
+
         if (clientFirmName.length > 0) {
             $('#sendLoading').addClass('active');
             $('#send').addClass('disabled');
@@ -152,9 +153,7 @@ function UpdateSceneHistory(txToAdd) {
 function ActivateClientInfoForm() {
     UpdateValuesByDropdown($('#clientOccupation'), 'clientOccupation');
 
-    $('#clientInfo').form({
-        on: 'blur'
-    });
+
 }
 
 function UpdateValuesFromSliders() {
