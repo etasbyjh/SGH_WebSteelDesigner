@@ -127,6 +127,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="public\sModuleTest.js" />
     <Content Include="public\jsonGeometry.js" />
     <Content Include="public\mouseControl.js" />
     <Content Include="public\pageControl.js" />

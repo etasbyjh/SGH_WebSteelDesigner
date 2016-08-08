@@ -22,11 +22,24 @@ namespace sWebSteelDesigner
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public string AskSGH(string jsonStr)
         {
+            string readPath = @"C:\Users\jlee\Documents\SGHWebApplications\sWebSteelDesigner\fromRH.json";
+            if (File.Exists(readPath))
+            {
+                File.Delete(readPath);
+            }
+            
             string path = @"C:\Users\jlee\Documents\SGHWebApplications\sWebSteelDesigner\fromWeb.json";
             File.WriteAllText(path, jsonStr);
-            object test = "";
-
-            return "received";
+            
+            if (File.Exists(readPath)){
+                return File.ReadAllText(readPath);
+            }
+            else
+            {
+                return "";
+            }
         }
+        
+     
     }
 }

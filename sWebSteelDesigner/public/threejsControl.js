@@ -23,6 +23,9 @@ var gui;
 var sprite;
 
 function UpdateView() {
+
+
+
     UpdateGridState();
     UpdateControlState();
     UpdateCursor();
@@ -38,9 +41,22 @@ function UpdateView() {
         }
     }
 
+    //    if (drawMode == "Delete") {
+    //        var lastHoveringObj;
+    //        if (ObjOnHovering) {
+    //            lastHoveringObj = ObjOnHovering;
+    //            SetObjHighlightedMaterial(ObjOnHovering);
+    //        }
+    //        if (lastHoveringObj != ObjOnHovering) {
+    //            SetObjDefaultMaterial(lastHoveringObj);
+    //        }
+    //    }
+    //    console.log(ObjOnHovering);
+
     if (ObjOnClicked) {
         if (drawMode == "Delete") {
             RemoveObjFromScene(ObjOnClicked);
+            $('#delete').removeClass('yellow').removeClass('scaledUP');
 
             ObjOnHovering = null;
             drawMode = "View";
@@ -85,6 +101,15 @@ function Initiate3DView() {
     //resizing why here?
     //after resizing mouse location issue
     window.addEventListener('resize', onWindowResized, false);
+}
+
+function ChangeOpacityOfObjects(objTypeName, opacaityVal) {
+    for (var i = scene.children.length - 1; i >= 0; i--) {
+        var objType = scene.children[i].userData.name;
+        if (objType == objTypeName) {
+            scene.children[i].material.opacity = opacaityVal;
+        }
+    }
 }
 
 function RemoveObjFromScene(threeObjSelected) {

@@ -4,16 +4,18 @@
 <head>
     <title>ASK SGH</title>
 
-    <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="references/semantic/dist/semantic.min.css">
-
     <script src="https://code.jquery.com/jquery-3.1.0.js" integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk=" crossorigin="anonymous"></script>
 
-    <script src="references/semantic/dist/semantic.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="references/semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="css/range.css">
 
+    <script src="references/semantic/dist/semantic.min.js"></script>
+    <script src="references/semantic/range.js"></script>
     <script type="text/javascript" src="references/threejs/three.min.js"></script>
     <script type="text/javascript" src="references/threejs/controls/TrackballControls.js"></script>
     <script type="text/javascript" src="references/threejs/controls/OrbitControls.js"></script>
+    <script type="text/javascript" src="public/sModuleTest.js"></script>
     <script type="text/javascript" src="public/mouseControl.js"></script>
     <script type="text/javascript" src="public/pageControl.js"></script>
     <script type="text/javascript" src="public/sWebGeometry.js"></script>
@@ -23,7 +25,6 @@
 </head>
 
 <body>
-
     <div id="leftInfo">
         <div>
             <h2 class="ui grey inverted header">
@@ -31,8 +32,8 @@
                 <div class="content">Scene Settings
                     <div class="sub header">Set Modeling Properties</div>
                 </div>
-                <p id="sceneInfo">Scene Unit:</p>
-                <p id="sceneInfo">Grid Snap:</p>
+                    <p id="sceneInfo">Scene Unit:<span id="sceneUnitText"></span></p>
+                    <p id="sceneInfo" >Grid Snap:<span id="sceneGridSnapText"></span></p>
             </h2>
         </div>
         <div style="margin-top: 35px">
@@ -40,6 +41,8 @@
                 <i class="yellow inverted building outline icon" id="ArchSetIcon"  data-position="bottom left" data-content="Click This Icon To Set Architectural Settings of Your Building" data-variation="inverted"></i>
                 <div class="content">Building Settings
                     <div class="sub header">Set Architectural Properties</div>
+                    <p id="archEngiInfo">Building Type:<span id="buildingType"></span></p>
+                    <p id="archEngiInfo">Floor Height:<span id="targetFloorHeightText"></span></p>
                 </div>
             </h3>
         </div>
@@ -51,23 +54,9 @@
                 </div>
             </h3>
         </div>
-        <div style="margin-top: 25px">
-            <h3 class="ui grey inverted header">
-                <i class="teal inverted huge dollar icon" id="CostSetIcon"  data-position="bottom left" data-content="Click This Icon To Set Cost Factors For Estimating Total Cost Of Your Building" data-variation="inverted"></i>
-                <div class="content">Cost Factor Settings
-                    <div class="sub header">Set Cost Factors</div>
-                </div>
-            </h3>
-        </div>
+
         <div id="modelStatusWindow" style="margin-top: 35px;">
             <p id="modelStatus">
-                Scrollbar Test!
-                <br/> Scrollbar Test!
-                <br/> Scrollbar Test!
-                <br/> Scrollbar Test!
-                <br/> Scrollbar Test!
-                <br/> Draw Mode
-                <br/>
             </p>
         </div>
 
@@ -78,33 +67,32 @@
         <h2 class="ui icon header">
             <i class="orange cubes icon"></i>
             <div class="content">
-                Set Properties Of Your Modeling Scene
+                Set Modeling Scene Properties
             </div>
         </h2>
-
         <div class="content">
             <div class="ui grid container">
                 <div class="sixteen wide column">
-                    <div class="ui inverted fluid floating dropdown labeled search icon button">
-                        <i class="orange grid layout icon"></i>
-                        <span class="text">Model Unit</span>
-                        <div class="menu">
-                            <div class="item">Model Unit: ft</div>
-                            <div class="item">Model Unit: m</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="sixteen wide column">
-                    <div class="ui inverted fluid floating dropdown labeled search icon button">
-                        <i class="orange grid layout icon"></i>
-                        <span class="text">Grid Snap Setting</span>
-                        <div class="menu">
-                            <div class="item">Grid Snap: Off</div>
-                            <div class="item">Grid Snap (Model Unit): 0.5</div>
-                            <div class="item">Grid Snap (Model Unit): 1</div>
-                            <div class="item">Grid Snap (Model Unit): 1.5</div>
-                            <div class="item">Grid Snap (Model Unit): 2.5</div>
-                            <div class="item">Grid Snap (Model Unit): 5</div>
+                    <div class="ui inverted segment">
+                        <div class="ui inverted accordion">
+                            <div class="title">
+                                <i class="orange grid large layout icon"></i> Scene Unit
+                            </div>
+                            <div class="content">
+                                <p>Select Unit For Your Modeling Scene</p>
+                                <div class="ui fluid buttons " id="sceneUnit">
+                                    <button class="ui active inverted orange basic button">Feet</button>
+                                    <div class="orange or"></div>
+                                    <button class="ui inverted orange basic button">Meter</button>
+                                </div>
+                            </div>
+                            <div class="title">
+                                <i class="orange grid large layout icon"></i> Modeling Grid Snap
+                            </div>
+                            <div class="content">
+                                <p id="mouseGridSnap"></p>
+                                <div class="ui inverted labeled orange small hover range" id="mouseGridSnapRn"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -122,96 +110,42 @@
         <div class="content">
             <div class="ui grid container">
                 <div class="sixteen wide column">
-                    <div class="ui inverted fluid floating dropdown labeled search icon button">
-                        <i class="yellow building icon"></i>
-                        <span class="text">Select Type of Your Building</span>
-                        <div class="menu">
-                            <div class="item">Office</div>
-                            <div class="item">School</div>
-                            <div class="item">Storage</div>
-                            <div class="item">Other?</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="sixteen wide column">
-                    <div class="ui inverted fluid floating dropdown labeled search icon button">
-                        <i class="yellow resize vertical icon"></i>
-                        <span class="text">Target Floor Height (Model Unit) </span>
-                        <div class="menu">
-                            <div class="item">Target Floor Height (Model Unit): 3.5</div>
-                            <div class="item">Target Floor Height (Model Unit): 4</div>
-                            <div class="item">Target Floor Height (Model Unit): 4.5</div>
-                            <div class="item">Target Floor Height (Model Unit): 5</div>
-                            <div class="item">Target Floor Height (Model Unit): 5.5</div>
-                            <div class="item">Target Floor Height (Model Unit): 6</div>
-                            <div class="item">Target Floor Height (Model Unit): 6.5</div>
-                            <div class="item">Target Floor Height (Model Unit): 7</div>
-                            <div class="item">Target Floor Height (Model Unit): 7.5</div>
-                            <div class="item">Target Floor Height (Model Unit): 8</div>
-                            <div class="item">Target Floor Height (Model Unit): 8.5</div>
-                            <div class="item">Target Floor Height (Model Unit): 9</div>
-                            <div class="item">Target Floor Height (Model Unit): 9.5</div>
-                            <div class="item">Target Floor Height (Model Unit): 10</div>
-                            <div class="item">Target Floor Height (Model Unit): 10.5</div>
-                            <div class="item">Target Floor Height (Model Unit): 11</div>
-                            <div class="item">Target Floor Height (Model Unit): 11.5</div>
-                            <div class="item">Target Floor Height (Model Unit): 12</div>
-                            <div class="item">Target Floor Height (Model Unit): 12.5</div>
-                            <div class="item">Target Floor Height (Model Unit): 13</div>
-                            <div class="item">Target Floor Height (Model Unit): 13.5</div>
-                            <div class="item">Target Floor Height (Model Unit): 14</div>
-                            <div class="item">Target Floor Height (Model Unit): 14.5</div>
-                            <div class="item">Target Floor Height (Model Unit): 15</div>
-                            <div class="item">Target Floor Height (Model Unit): 15.5</div>
-                            <div class="item">Target Floor Height (Model Unit): 16</div>
-                            <div class="item">Target Floor Height (Model Unit): 16.5</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="sixteen wide column">
-                    <div class="ui inverted fluid floating dropdown labeled search icon button">
-                        <i class="yellow grid resize horizontal icon"></i>
-                        <span class="text">Target Outer Floor Depth (Model Unit) </span>
-                        <div class="menu">
-                            <div class="item">N/A</div>
-                            <div class="item">Target Outer Floor Depth (Model Unit): N/A</div>
-                            <div class="item">Target Outer Floor Depth (Model Unit): 5</div>
-                            <div class="item">Target Outer Floor Depth (Model Unit): 10</div>
-                            <div class="item">Target Outer Floor Depth (Model Unit): 15</div>
-                            <div class="item">Target Outer Floor Depth (Model Unit): 20</div>
-                            <div class="item">Target Outer Floor Depth (Model Unit): 25</div>
-                            <div class="item">Target Outer Floor Depth (Model Unit): 30</div>
-                            <div class="item">Target Outer Floor Depth (Model Unit): 35</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="sixteen wide column">
-                    <div class="ui inverted fluid floating dropdown labeled search icon button">
-                        <i class="yellow maximize icon"></i>
-                        <span class="text">Target Window To Wall Ratio (%) </span>
-                        <div class="menu">
-                            <div class="item">N/A</div>
-                            <div class="item">Target Window To Wall Ratio(%): 0</div>
-                            <div class="item">Target Window To Wall Ratio(%): 5</div>
-                            <div class="item">Target Window To Wall Ratio(%): 10</div>
-                            <div class="item">Target Window To Wall Ratio(%): 15</div>
-                            <div class="item">Target Window To Wall Ratio(%): 20</div>
-                            <div class="item">Target Window To Wall Ratio(%): 25</div>
-                            <div class="item">Target Window To Wall Ratio(%): 30</div>
-                            <div class="item">Target Window To Wall Ratio(%): 35</div>
-                            <div class="item">Target Window To Wall Ratio(%): 40</div>
-                            <div class="item">Target Window To Wall Ratio(%): 45</div>
-                            <div class="item">Target Window To Wall Ratio(%): 50</div>
-                            <div class="item">Target Window To Wall Ratio(%): 55</div>
-                            <div class="item">Target Window To Wall Ratio(%): 60</div>
-                            <div class="item">Target Window To Wall Ratio(%): 65</div>
-                            <div class="item">Target Window To Wall Ratio(%): 70</div>
-                            <div class="item">Target Window To Wall Ratio(%): 75</div>
-                            <div class="item">Target Window To Wall Ratio(%): 80</div>
-                            <div class="item">Target Window To Wall Ratio(%): 85</div>
-                            <div class="item">Target Window To Wall Ratio(%): 90</div>
-                            <div class="item">Target Window To Wall Ratio(%): 95</div>
-                            <div class="item">Target Window To Wall Ratio(%): 100</div>
+                    <div class="ui inverted segment">
+                        <div class="ui inverted accordion">
+                            <div class="title">
+                                <i class="yellow large building icon"></i> Building Type
+                            </div>
+                            <div class="content">
+                                <p class="transition hidden">Select Type Of Your Building</p>
+                                <div class="five ui inverted yellow basic buttons" id="buildingType">
+                                    <button class="ui button active">Office</button>
+                                    <button class="ui button">School</button>
+                                    <button class="ui button">Residential</button>
+                                    <button class="ui button">Storage</button>
+                                    <button class="ui button">Extra</button>
+                                </div>
+                            </div>
+                            <div class="title">
+                                <i class="yellow large resize vertical icon"></i> Target Floor To Floor Height (SE)
+                            </div>
+                            <div class="content">
+                                <p id="targetFloorHeight"></p>
+                                <div class="ui inverted yellow labeled small hover range" id="targetFloorHeightRn"></div>
+                            </div>
+                            <div class="title">
+                                <i class="yellow large resize labeled horizontal icon"></i> Maximum Depth Of Floor (DA)
+                            </div>
+                            <div class="content">
+                                <p id="maxFloorDepth"></p>
+                                <div class="ui inverted yellow labeled small hover range" id="maxFloorDepthRn"></div>
+                            </div>
+                            <div class="title">
+                                <i class="yellow large maximize icon"></i> Wall To Window Ratio (DA)
+                            </div>
+                            <div class="content">
+                                <p id="wallToWindowRatio"></p>
+                                <div class="ui inverted yellow labeled small hover range" id="wallToWindowRatioRn"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -224,108 +158,160 @@
             <i class="green calculator icon"></i>
             <div class="content">
                 Set Structural Properties Of Your Building
+                <p style="font-size:13px; color:grey;">(You may skip these setting, SGH will design with most typical cases)</p>
             </div>
         </h2>
         <div class="content">
             <div class="ui grid container">
                 <div class="sixteen wide column">
-                    <div class="fluid inverted ui input focus labeled">
-                        <div class="ui black inverted label">Maximum X Column Span</div>
-                        <input type="text" placeholder="Not Applicable Yet">
-                        <div class="ui black inverted label">Model Unit</div>
-                    </div>
-                </div>
-                <div class="sixteen wide column">
-                    <div class="fluid inverted ui input focus labeled">
-                        <div class="ui black inverted label">Maximum Y Column Span</div>
-                        <input type="text" placeholder="Not Applicable Yet">
-                        <div class="ui black inverted label">Model Unit</div>
-                    </div>
-                </div>
-                <div class="sixteen wide column">
-                    <div class="fluid inverted ui input focus labeled">
-                        <div class="ui black inverted label">Maximum Beam Span</div>
-                        <input type="text" placeholder="Not Applicable Yet">
-                        <div class="ui black inverted label">Model Unit</div>
-                    </div>
-                </div>
-                <div class="sixteen wide column">
-                    <div class="fluid inverted ui input focus labeled">
-                        <div class="ui black inverted label">Dead Load</div>
-                        <input type="text" placeholder="Not Applicable Yet">
-                        <div class="ui black inverted label">psf</div>
-                    </div>
-                </div>
-                <div class="sixteen wide column">
-                    <div class="fluid inverted ui input focus labeled">
-                        <div class="ui black inverted label">Super Imposed Dead Load</div>
-                        <input type="text" placeholder="Not Applicable Yet">
-                        <div class="ui black inverted label">psf</div>
-                    </div>
-                </div>
-                <div class="sixteen wide column">
-                    <div class="fluid inverted ui input focus labeled">
-                        <div class="ui black inverted label">Live Load</div>
-                        <input type="text" placeholder="Not Applicable Yet">
-                        <div class="ui black inverted label">psf</div>
-                    </div>
-                </div>
-                <div class="sixteen wide column">
-                    <div class="fluid inverted ui input focus labeled">
-                        <div class="ui black inverted label">Slab Thickness</div>
-                        <input type="text" placeholder="Not Applicable Yet">
-                        <div class="ui black inverted label">Model Unit</div>
-                    </div>
-                </div>
-                <div class="sixteen wide column">
-                    <div class="fluid inverted ui input focus labeled">
-                        <div class="ui black inverted label">Metal Deck Depth</div>
-                        <input type="text" placeholder="Not Applicable Yet">
-                        <div class="ui black inverted label">Model Unit</div>
-                    </div>
-                </div>
-                <div class="sixteen wide column">
-                    <div class="fluid inverted ui input focus labeled">
-                        <div class="ui black inverted label">Slab Edge Depth</div>
-                        <input type="text" placeholder="Not Applicable Yet">
-                        <div class="ui black inverted label">Model Unit</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="ui basic modal" id="CostSets">
-        <i class="close icon"></i>
-        <h2 class="ui icon header">
-            <i class="teal dollar icon"></i>
-            <div class="content">
-                Set Cost Impact Factor
-            </div>
-        </h2>
-        <div class="content">
-            <div class="ui grid container">
-                <div class="sixteen wide column">
-                    <div class="fluid inverted ui input focus labeled">
-                        <div class="ui black inverted label">Steel Cost Per Tonne</div>
-                        <input type="text" placeholder="Not Applicable Yet">
-                        <div class="ui black inverted label">Dollar / Tonne</div>
-                    </div>
-                </div>
-                <div class="sixteen wide column">
-                    <div class="fluid inverted ui input focus labeled">
-                        <div class="ui black inverted label">Labor Cost Per Member</div>
-                        <input type="text" placeholder="Not Applicable Yet">
-                        <div class="ui black inverted label">Dollar / Member</div>
+                    <div class="ui inverted segment">
+                        <div class="ui inverted accordion">
+                            <div class="title">
+                                <i class="green large calculator icon"></i> Strength Design Check Type
+                            </div>
+                            <div class="content">
+                                <p class="transition hidden">Select Strength Design Criteria</p>
+                                <div class="two ui inverted green basic buttons" id="designStrength">
+                                    <button class="ui button active">LRFD</button>
+                                    <button class="ui button">ASD</button>
+                                </div>
+                            </div>
+                            <div class="title">
+                                <i class="green large calculator icon"></i> Stiffness Design Check Type
+                            </div>
+                            <div class="content">
+                                <p class="transition hidden">Select Stiffness Design Criteria</p>
+                                <div class="five ui inverted green basic buttons" id="designStiffness">
+                                    <button class="ui button">L/240</button>
+                                    <button class="ui button active">L/360</button>
+                                    <button class="ui button">L/480</button>
+                                </div>
+                            </div>
+
+                            <div class="title">
+                                <i class="green grid large grid layout icon"></i>
+                                <i class="green grid resize horizontal icon"></i> Maximum X Directional Column Span
+                            </div>
+                            <div class="content">
+                                <p id="maxXColSpan"></p>
+                                <div class="ui inverted labeled green small hover range" id="maxXColSpanRn"></div>
+                            </div>
+                            <div class="title">
+                                <i class="green grid large grid layout icon"></i>
+                                <i class="green grid resize vertical icon"></i> Maximum Y Directional Column Span
+                            </div>
+                            <div class="content">
+                                <p id="maxYColSpan"></p>
+                                <div class="ui inverted labeled green small hover range" id="maxYColSpanRn"></div>
+                            </div>
+                            <div class="title">
+                                <i class="green grid large align justify icon"></i>
+                                <i class="green grid resize vertical icon"></i> Maximum Beam Spacing
+                            </div>
+                            <div class="content">
+                                <p id="maxBeamSpan"></p>
+                                <div class="ui inverted labeled green small hover range" id="maxBeamSpanRn"></div>
+                            </div>
+                            <div class="title">
+                                <i class="large green minus icon"></i>
+                                <i class="green corner resize vertical icon"></i> Slab Thickness
+                            </div>
+                            <div class="content">
+                                <p id="slabThickness"></p>
+                                <div class="ui inverted labeled green small hover range" id="slabThicknessRn"></div>
+                            </div>
+                            <div class="title">
+                                <i class="large green road icon"></i>
+                                <i class="green corner resize vertical icon"></i> Metal Deck Thickness
+                            </div>
+                            <div class="content">
+                                <p id="metalDeckThickness"></p>
+                                <div class="ui inverted labeled green small hover range" id="metalDeckThicknessRn"></div>
+                            </div>
+                            <div class="title">
+                                <i class="large green minus icon"></i>
+                                <i class="green corner resize horizontal icon"></i> Slab Edge Depth
+                            </div>
+                            <div class="content">
+                                <p id="slabEdgeDepth"></p>
+                                <div class="ui inverted labeled green small hover range" id="slabEdgeDepthRn"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="ui basic modal" id="GetClientInfo">
+        <i class="close icon"></i>
+        <h2 class="ui icon header">
+            <i class="inverted orange smile icon"></i>
+            <div class="content">
+                Please Help Us To Improve Our App
+            </div>
+        </h2>
+        <div class="content">
+            <div class="ui grid container">
+                <div class="sixteen wide column">
+
+                    <form class="ui form" id="clientInfo">
+                        <p style="margin: 0">We would like to know about you just to monitor who and how many are using our app.</p>
+                        <p>Please don't worry! We will not send any spam to you. If you don't want to send us any information, you can click submit with blanks.</p>
+
+
+                        <div class="field" style="margin-top:40px">
+                            <div class="field">
+                                <label>Your Occupation</label>
+                                <div class="ui fluid selection dropdown" id="clientOccupation">
+                                    <input type="hidden" name="Your Occupation">
+                                    <div class="default text">Your Occupation</div>
+                                    <i class="dropdown icon"></i>
+                                    <div class="menu">
+                                        <div class="item">Architect</div>
+                                        <div class="item">Landscape Architect</div>
+                                        <div class="item">Structural Engineer</div>
+                                        <div class="item">Other Engineer</div>
+                                        <div class="item">Developer</div>
+                                        <div class="item">Other</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="field">
+                                <label>Name of Your Firm</label>
+                                <div class="ui input focus">
+                                    <input type="text" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="field">
+                                <label>Your Name</label>
+                                <div class="ui input focus">
+                                    <input type="text" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="ui button" type="submit">Submit</button>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <div id="rightInfo">
         <h2 class="ui grey inverted right aligned header">
             <div class="content"> ASK SGH  
-                <div class="sub header">Steel Structure Cost Estimator Beta 
+                <div class="sub header">Interactive Building Cost Estimator Beta 
                 </div>
             </div>
             <div class="ui image" id="rightLogo">
@@ -353,13 +339,13 @@
             </div>
             <div class="column">
                 <div class="ui dimmer" id="sendLoading" style="background-color:transparent">
-                    <div class="ui medium text loader" >ASKing SGH</div>
+                    <div class="ui medium text loader">ASKing SGH</div>
                 </div>
                 <i class="ui inverted brown huge send outline icon" id="send" data-content="Send Building Geometries To SGH" data-variation="inverted"></i>
 
             </div>
-            <div class="column">
-                <i class="ui inverted violet huge retweet icon" id="receive" data-content="Synchronize Model With Structure By SGH" data-variation="inverted"></i>
+            <div class="column" id="received" data-content="You Have Received Data From SGH!" data-variation="inverted" data-position="top center">
+                <i class="ui inverted violet huge retweet icon" id="receive" data-content="Synchronize Model With Structure By SGH" data-variation="inverted" data-position="top center"></i>
             </div>
         </div>
     </div>

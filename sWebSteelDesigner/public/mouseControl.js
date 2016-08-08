@@ -1,8 +1,6 @@
 var mouseMoved = false;
 var mouseMoveTolerance = 1;
 
-var mouseGridOn = true;
-var mouseGridSnap = 1;
 
 var screenMouse = new THREE.Vector2(0, 0);
 var lastScreenMouseLeftDn = new THREE.Vector2(0, 0);

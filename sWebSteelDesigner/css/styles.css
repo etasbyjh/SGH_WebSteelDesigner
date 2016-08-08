@@ -33,6 +33,7 @@ body,
 }
 #modelStatus {
     color: gainsboro;
+    margin: 0px;
 }
 #rightInfo {
     float: right;
@@ -67,9 +68,9 @@ body,
 #drawVol:hover,
 #drawVoid:hover,
 #delete:hover,
+#receive:hover,
 #objectInfo:hover,
 #send:hover,
-#receive:hover,
 #rightLogoImage:hover {
     -webkit-transform: scale(1.2);
     cursor: pointer;
@@ -84,6 +85,20 @@ body,
     margin-bottom: 0;
     padding-left: 58px;
 }
+#archEngiInfo {
+    font-size: 13px;
+    margin-top: 2px;
+    margin-bottom: 0;
+}
 .column {
     text-align: center;
+}
+.scaledUP {
+    -webkit-transform: scale(1.2);
+}
+.ui.form .inline.field .input > input {
+    width: auto !important;
+}
+input {
+    pointer-events: all;
 }

@@ -33,10 +33,13 @@ function InitiateRecDrawingAid(ThreeScene, drawModeIn) {
     ResetSceneMouse3dDownCondition();
     recDrawingAid = new SGH_RecDrawingAid(ThreeScene, drawModeIn);
 
+    UpdateSceneHistory("Drawing " + drawModeIn);
+
     $(document).keyup(function (e) {
         if (e.keyCode == 27) {
             drawMode = "View";
             recDrawingAid.RemoveDrawingAid(ThreeScene);
+            //UpdateSceneHistory("Canceled: Drawing " + drawModeIn);
         }
     })
 }
@@ -150,6 +153,7 @@ SGH_RecDrawingAid.prototype.FinalizeDrawing = function (type, threeScene) {
     drawMode = "View";
     console.log("View Mode");
 
+    UpdateSceneHistory(type + ' Added, (X:' + this.drawingBoundaryMesh.scale.x + sceneUnit + ' Y:' + this.drawingBoundaryMesh.scale.z + sceneUnit + ' Z:' + this.drawingBoundaryMesh.scale.y + sceneUnit + ')');
 }
 
 SGH_RecDrawingAid.prototype.UpdateDrawingAid = function (hoveringPointIn, clickedPointIn, verticalRef, threeScene) {
