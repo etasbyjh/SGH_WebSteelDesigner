@@ -127,6 +127,7 @@
     <Content Include="references\semantic\dist\themes\default\assets\fonts\icons.ttf" />
     <Content Include="references\semantic\dist\themes\default\assets\fonts\icons.woff" />
     <Content Include="references\semantic\dist\themes\default\assets\fonts\icons.woff2" />
+    <None Include="Properties\PublishProfiles\Beta.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
