@@ -130,7 +130,7 @@ function DeactivateCursorText() {
 
 function UpdateCursor() {
     if (screenChanging === false) {
-        if (drawMode.indexOf("Volumn") !== -1 || drawMode.indexOf("Void") !== -1) {
+        if (drawMode.indexOf("Volume") !== -1 || drawMode.indexOf("Void") !== -1) {
             $('#div_3dCanvas').css('cursor', 'crosshair');
             control.enabled = false;
         } else if (drawMode == "Delete") {
