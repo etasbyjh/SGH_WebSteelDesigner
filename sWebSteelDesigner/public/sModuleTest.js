@@ -1,12 +1,12 @@
-﻿
-var sModule = function () {
+(function () {
 
-    this.testProp = "";
-    this.testProp_2 = 123;
+    var privateTest = "private";
 
-    this.GetFunction = function () {
-        return true;
-    }
-}
+    window.orderModule = {
+        getPrivateProp: function () {
+            //some code
+            return privateTest;
+        }
+    };
 
-
+})()

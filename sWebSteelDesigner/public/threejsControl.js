@@ -24,8 +24,6 @@ var sprite;
 
 function UpdateView() {
 
-
-
     UpdateGridState();
     UpdateControlState();
     UpdateCursor();

@@ -67,7 +67,6 @@ $(document).ready(function () {
     UpdateValuesFromButtons(true, true);
     UpdateValuesFromSliders();
 
-
     //3d control
     $('#drawVol').click(function () {
         InitiateRecDrawingAid(scene, "Volumn");

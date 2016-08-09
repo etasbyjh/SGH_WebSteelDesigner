@@ -5,6 +5,7 @@ function JsonModel() {
     this.buildingInfo = new JsonInfo();
 }
 
+
 function JsonInfo() {
     this.sceneUnit = "";
     this.buildingType = "";

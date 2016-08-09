@@ -118,7 +118,13 @@ input {
     margin-bottom: 0;
 }
 .resultVal {
-    color:#D9E778;
-/*    color: #A291FB;*/
+    color: #D9E778;
+    /*    color: #A291FB;*/
     /*    color: #54C8FF;*/
+}
+#cursorText {
+    position: absolute;
+    font-size: 15px;
+    color: grey;
+    font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }

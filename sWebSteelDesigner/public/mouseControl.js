@@ -83,6 +83,51 @@ $(document).keydown(function (e) {
 })
 
 //mouse controls
+function UpdateCursorText(xOverride, zOverride, yOverride, threeObj) {
+    var curText = $('#cursorText');
+    var mx = Math.round(sceneMouse3d_ground.x, 1);
+    var mz = Math.round(-1 * sceneMouse3d_ground.z, 1);
+    var my = Math.round(sceneMouse3d_Vertical.y, 1);
+
+    if (xOverride != null) {
+        mx = xOverride;
+    }
+    if (zOverride != null) {
+        mz = zOverride;
+    }
+    if (yOverride != null) {
+        my = yOverride;
+    }
+
+    document.body.onmousemove = moveCursor;
+
+    var txx = "x:" + mx + " y:" + mz + " z:" + my;
+    if (threeObj != null) {
+        txx = "x:" + mx + " y:" + mz + " z:" + my + "\n" + "w:" + threeObj.scale.x + " d:" + threeObj.scale.z + " h:" + Math.round(threeObj.scale.y, 0);
+    }
+    curText.text(txx);
+
+    var curTxtLen = [curText.width(), curText.height];
+
+    var leftLoc = screenMouse.x + 15 + 'px';
+    var topLoc = screenMouse.y + 2 + 'px';
+
+    function moveCursor(e) {
+        if (!e) {
+            e = window.event;
+        }
+        curText.css({
+            left: leftLoc,
+            top: topLoc
+        });
+    }
+}
+
+function DeactivateCursorText() {
+    $('#cursorText').text("");
+}
+
+
 function UpdateCursor() {
     if (screenChanging === false) {
         if (drawMode.indexOf("Volumn") !== -1 || drawMode.indexOf("Void") !== -1) {

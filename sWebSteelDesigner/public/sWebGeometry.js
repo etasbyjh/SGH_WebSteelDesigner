@@ -39,6 +39,8 @@ function InitiateRecDrawingAid(ThreeScene, drawModeIn) {
         if (e.keyCode == 27) {
             drawMode = "View";
             recDrawingAid.RemoveDrawingAid(ThreeScene);
+
+            DeactivateCursorText();
             //UpdateSceneHistory("Canceled: Drawing " + drawModeIn);
         }
     })
@@ -150,6 +152,8 @@ SGH_RecDrawingAid.prototype.FinalizeDrawing = function (type, threeScene) {
 
     this.RemoveDrawingAid(threeScene);
 
+    DeactivateCursorText();
+
     drawMode = "View";
     console.log("View Mode");
 
@@ -157,6 +161,8 @@ SGH_RecDrawingAid.prototype.FinalizeDrawing = function (type, threeScene) {
 }
 
 SGH_RecDrawingAid.prototype.UpdateDrawingAid = function (hoveringPointIn, clickedPointIn, verticalRef, threeScene) {
+
+
 
     var hoveringPoint = hoveringPointIn;
     var clickedPoint = clickedPointIn;
@@ -198,6 +204,7 @@ SGH_RecDrawingAid.prototype.UpdateDrawingAid = function (hoveringPointIn, clicke
             newPositionY = hoveringPoint.y;
             newPositionZ = hoveringPoint.z;
             //this.GetDrawingBoundaryMesh.visible = false;
+            UpdateCursorText(null, null, 0);
 
         } else if (this.clickedPoints.length == 1) {
             newDimX = (hoveringPoint.x - this.clickedPoints[0].x);
@@ -213,6 +220,8 @@ SGH_RecDrawingAid.prototype.UpdateDrawingAid = function (hoveringPointIn, clicke
             deltaX = hoveringPoint.x - this.lastClicked.x;
             deltaY = 0.1;
             deltaZ = hoveringPoint.z - this.lastClicked.z;
+
+            UpdateCursorText(null, null, 0, this.drawingBoundaryMesh);
 
         } else if (this.clickedPoints.length == 2) {
             var verticlMousePoint = verticalRef;
@@ -234,6 +243,7 @@ SGH_RecDrawingAid.prototype.UpdateDrawingAid = function (hoveringPointIn, clicke
             var newDrawingPoint = new THREE.Vector3(this.lastClicked.x, verticlMousePoint.y, this.lastClicked.z);
             this.drawingPoint.position.copy(newDrawingPoint);
 
+            UpdateCursorText(this.lastClicked.x, -1 * this.lastClicked.z, null, this.drawingBoundaryMesh);
         }
 
         var newPosition = new THREE.Vector3(newPositionX, newPositionY, newPositionZ);
