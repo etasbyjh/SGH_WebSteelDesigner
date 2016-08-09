@@ -69,7 +69,7 @@ $(document).ready(function () {
 
     //3d control
     $('#drawVol').click(function () {
-        InitiateRecDrawingAid(scene, "Volumn");
+        InitiateRecDrawingAid(scene, "Volume");
     })
 
     $('#drawVoid').click(function () {
@@ -184,7 +184,7 @@ function DataCommunication() {
     $('#receive').click(function () {
         UpdateSceneHistory("Receiving Structural Information From SGH");
 
-        ChangeOpacityOfObjects('Volumn', 0.2);
+        ChangeOpacityOfObjects('Volume', 0.2);
         ChangeOpacityOfObjects('Void', 0);
 
         $(this).removeClass('red').addClass('inverted').addClass('olive').transition('remove looping').removeClass('jiggle');

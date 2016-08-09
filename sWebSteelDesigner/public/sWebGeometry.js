@@ -48,7 +48,7 @@ function InitiateRecDrawingAid(ThreeScene, drawModeIn) {
 
 function SetObjDefaultMaterial(Obj) {
     if (Obj) {
-        if (Obj.userData.name.includes('Volumn')) {
+        if (Obj.userData.name.includes('Volume')) {
             Obj.material.color.setHex(BoxDefaultColor);
         } else if (Obj.userData.name.includes('Void')) {
             Obj.material.color.setHex(VoidDefaultColor);
@@ -59,7 +59,7 @@ function SetObjDefaultMaterial(Obj) {
 
 function SetObjHighlightedMaterial(Obj) {
     if (Obj) {
-        if (Obj.userData.name.includes('Volumn')) {
+        if (Obj.userData.name.includes('Volume')) {
             Obj.material.color.setHex(BoxHighlightedColor);
         }
         if (Obj.userData.name.includes('Void')) {
@@ -74,7 +74,7 @@ SGH_RecDrawingAid.prototype.GetDrawingBoundaryLines = function (type) {
     BoxLines.userData.name = "DrawingAid";
     BoxLines.material.transparent = true;
     BoxLines.material.opacity = 0.2;
-    if (this.objType == "Volumn") {
+    if (this.objType == "Volume") {
         BoxLines.material.color = BoxOutlineDefaultColor;
     } else if (this.objType == "Void") {
         BoxLines.material.color = VoidOutlineDefaultColor;
@@ -87,7 +87,7 @@ SGH_RecDrawingAid.prototype.GetDrawingBoundaryMesh = function () {
 
     var material = null;
 
-    if (this.objType == "Volumn") {
+    if (this.objType == "Volume") {
         material = new THREE.MeshBasicMaterial({
             color: BoxDefaultColor,
             opacity: 0.01,
@@ -140,7 +140,7 @@ SGH_RecDrawingAid.prototype.FinalizeDrawing = function (type, threeScene) {
     this.drawingBoundaryMesh.userData.linkedID = this.drawingBoundaryLines.uuid;
 
     SetObjDefaultMaterial(this.drawingBoundaryMesh);
-    if (type == "Volumn") {
+    if (type == "Volume") {
         this.drawingBoundaryLines.material.color = BoxOutlineDefaultColor;
     } else if (type == "Void") {
         this.drawingBoundaryLines.material.color = VoidOutlineDefaultColor;

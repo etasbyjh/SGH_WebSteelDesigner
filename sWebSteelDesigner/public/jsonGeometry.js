@@ -1,6 +1,6 @@
 function JsonModel() {
     this.name = "";
-    this.volumnBoxes = [];
+    this.VolumeBoxes = [];
 
     this.buildingInfo = new JsonInfo();
 }
@@ -89,8 +89,8 @@ function GetBuildingInfoAsString(json) {
 
 function GetThreeMeshesFromJSON(threeScene, threeSceneObjects, json) {
 
-    for (var i = 0; i < json.volumnBoxes.length; ++i) {
-        var vbox = json.volumnBoxes[i];
+    for (var i = 0; i < json.VolumeBoxes.length; ++i) {
+        var vbox = json.VolumeBoxes[i];
 
         var threeGeo = new THREE.Geometry();
         for (var j = 0; j < vbox.vertices.length; ++j) {
@@ -151,7 +151,7 @@ function GetJsonModelFromScene(Th_Meshes) {
         var jm = GetJsonMeshFromTHREEMesh(Th_Meshes[i]);
 
         var test = jm;
-        jmo.volumnBoxes.push(jm);
+        jmo.VolumeBoxes.push(jm);
     }
     return jmo;
 }

@@ -28,11 +28,11 @@ function UpdateView() {
     UpdateControlState();
     UpdateCursor();
 
-    if (drawMode == "Volumn" || drawMode == "Void") {
+    if (drawMode == "Volume" || drawMode == "Void") {
         if (recDrawingAid.clickedPoints.length == 2) verticalPl.position.copy(recDrawingAid.lastClicked);
         recDrawingAid.UpdateDrawingAid(sceneMouse3d_ground, lastSceneMouse3dLeftDn, sceneMouse3d_Vertical, scene);
         if (recDrawingAid.clickedPoints.length == 3) {
-            //cal volumn object count...
+            //cal Volume object count...
             recDrawingAid.FinalizeDrawing(drawMode, scene);
             //sceneObjects.push(recFinal);
             //boxObjects.push(recFinal);
