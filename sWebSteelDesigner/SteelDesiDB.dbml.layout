@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.5, 8.5" name="SteelDesiDB">
+  <DataContextMoniker Name="/SteelDesiDBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="9b80170b-d529-4b88-8148-78f0c331ba64" absoluteBounds="9.25, 3.375, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/SteelDesiDBDataContext/ClientInfo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="85e2b636-7486-43f5-abbc-2d59f6aa1e69" absoluteBounds="9.265, 3.835, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
