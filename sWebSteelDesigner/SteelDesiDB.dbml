@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SteelDesigner" Class="SteelDesiDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=SQL-CLS1;Initial Catalog=SteelDesigner;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SteelDesignerConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ClientInfo" Member="ClientInfos">
+    <Type Name="ClientInfo">
+      <Column Name="clientInfoID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="clientFirmName" Type="System.String" DbType="VarChar(150) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="clientEmail" Type="System.String" DbType="VarChar(150) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="clientFirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="clientLastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="clientOccupation" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="clientComment" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
