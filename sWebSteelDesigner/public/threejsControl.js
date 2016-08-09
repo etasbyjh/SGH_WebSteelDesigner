@@ -162,7 +162,8 @@ function SetBaseScene(RegionID) {
 }
 
 function SetBaseOrbitControl() {
-    control = new THREE.OrbitControls(camera);
+
+    control = new THREE.OrbitControls(camera, renderer.domElement);
 
     control.target.set(0, 0, 0);
     control.rotateSpeed = 1.0;

@@ -5,16 +5,24 @@
   SGH Text Brown #5a471b
 */
 
-html {
-    height: 100%;
-}
 body,
+html {
+    overflow-y: hidden;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
 #div_3dCanvas {
     font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     background-color: black;
-    margin: auto;
-    padding: 0;
+    /*    margin: auto;*/
+    /*    padding: 0;*/
     height: 100%;
+    width: 100%;
+    z-index: -1;
 }
 #leftInfo {
     float: left;
@@ -58,7 +66,8 @@ body,
 #objectInfo,
 #send,
 #receive,
-#rightLogoImage {
+#rightLogoImage,
+{
     transition: all .45s ease-in-out;
 }
 #SceneSetIcon:hover,
@@ -101,4 +110,15 @@ body,
 }
 input {
     pointer-events: all;
+}
+.resultP {
+    text-align: right;
+    /*    color: #008080;*/
+    font-size: 16px;
+    margin-bottom: 0;
+}
+.resultVal {
+    color:#D9E778;
+/*    color: #A291FB;*/
+    /*    color: #54C8FF;*/
 }

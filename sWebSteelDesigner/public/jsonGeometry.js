@@ -2,7 +2,41 @@ function JsonModel() {
     this.name = "";
     this.volumnBoxes = [];
 
-    this.buildingInfo = "";
+    this.buildingInfo = new JsonInfo();
+}
+
+function JsonInfo() {
+    this.sceneUnit = "";
+    this.buildingType = "";
+    this.targetFloorHeight = "";
+    this.maxFloorDepth = "";
+    this.wallToWindowRatio = "";
+    this.maxXColSpan = "";
+    this.maxYColSpan = "";
+    this.maxBeamSpan = "";
+    this.slabThickness = ""; //in
+    this.metalDeckThickness = ""; //in
+    this.slabEdgeDepth = ""; //in
+    this.designStrength = "LRFD";
+    this.designStiffness = "L/360";
+
+    this.clientOccupation = "";
+    this.clientFirmName = "";
+    this.clientEmail = "";
+    this.clientFirstName = "";
+    this.clientLastName = "";
+    this.clientComment = "";
+
+    this.floorCount             = "";
+    this.grossFloorArea          = "";
+    this.grossFacadeArea             = "";
+    this.beamCount                  = "";
+    this.beamWeight                 = "";
+    this.girderCount                 = "";
+    this.girderWeight                = "";
+    this.columnCount            = "";
+    this.totalWeight            = "";
+    this.steelWeight                 = "";
 }
 
 function JsonMesh() {
@@ -18,7 +52,7 @@ function JsonMesh() {
     this.cenZ = 0.0;
     this.scaleX = 1.0;
     this.scaleY = 1.0;
-    this.scaleZ = 1.0;  
+    this.scaleZ = 1.0;
 }
 
 function JsonVertex() {
@@ -109,6 +143,7 @@ function GetThreeMeshesFromJSON(threeScene, threeSceneObjects, json) {
 
 function GetJsonModelFromScene(Th_Meshes) {
     var jmo = new JsonModel();
+    jmo.buildingInfo = new JsonInfo();
 
     var test0 = jmo;
     for (var i = 0; i < Th_Meshes.length; ++i) {

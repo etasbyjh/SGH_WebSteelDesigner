@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Script.Services;
 using System.Web.Services;
@@ -27,11 +28,14 @@ namespace sWebSteelDesigner
             {
                 File.Delete(readPath);
             }
-            
+
             string path = @"C:\Users\jlee\Documents\SGHWebApplications\sWebSteelDesigner\fromWeb.json";
+  
             File.WriteAllText(path, jsonStr);
             
-            if (File.Exists(readPath)){
+
+            if (File.Exists(readPath))
+            {
                 return File.ReadAllText(readPath);
             }
             else
@@ -40,6 +44,5 @@ namespace sWebSteelDesigner
             }
         }
         
-     
     }
 }
