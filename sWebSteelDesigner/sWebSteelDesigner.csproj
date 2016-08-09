@@ -112,6 +112,7 @@
     <Content Include="css\images\remove.png" />
     <Content Include="css\images\Rounded-Rectangle.png" />
     <Content Include="css\images\sgh_logo.png" />
+    <Content Include="css\images\sgh_logo_Bw.png" />
     <Content Include="css\images\Void.png" />
     <Content Include="css\images\Volumn.png" />
     <Content Include="css\range.css" />
@@ -129,9 +130,7 @@
     <Content Include="references\semantic\dist\themes\default\assets\fonts\icons.ttf" />
     <Content Include="references\semantic\dist\themes\default\assets\fonts\icons.woff" />
     <Content Include="references\semantic\dist\themes\default\assets\fonts\icons.woff2" />
-    <Content Include="references\semantic\dist\themes\github\assets\fonts\octicons-local.ttf" />
-    <Content Include="references\semantic\dist\themes\github\assets\fonts\octicons.ttf" />
-    <Content Include="references\semantic\dist\themes\github\assets\fonts\octicons.woff" />
+    <None Include="Properties\PublishProfiles\Beta.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -293,7 +292,6 @@
     <Content Include="references\semantic\dist\themes\basic\assets\fonts\icons.svg" />
     <Content Include="references\semantic\dist\themes\default\assets\fonts\icons.svg" />
     <Content Include="references\semantic\dist\themes\default\assets\images\flags.png" />
-    <Content Include="references\semantic\dist\themes\github\assets\fonts\octicons.svg" />
     <Content Include="references\semantic\range.js" />
     <Content Include="references\threejs\controls\DeviceOrientationControls.js" />
     <Content Include="references\threejs\controls\EditorControls.js" />
@@ -386,7 +384,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58408</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
