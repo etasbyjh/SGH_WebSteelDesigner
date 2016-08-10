@@ -137,6 +137,7 @@
       <LastGenOutput>SteelDesiDB.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Properties\PublishProfiles\juhun.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -146,7 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="public\sModuleTest.js" />
-    <Content Include="public\jsonGeometry.js" />
+    <Content Include="public\sJsonDataPackageJS.js" />
     <Content Include="public\mouseControl.js" />
     <Content Include="public\pageControl.js" />
     <Content Include="public\sWebGeometry.js" />
@@ -391,6 +392,12 @@
     <None Include="SteelDesiDB.dbml.layout">
       <DependentUpon>SteelDesiDB.dbml</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\sJsonHandler\sJsonHandler.csproj">
+      <Project>{c7c6a058-6511-4118-af8c-519cb7246c23}</Project>
+      <Name>sJsonHandler</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

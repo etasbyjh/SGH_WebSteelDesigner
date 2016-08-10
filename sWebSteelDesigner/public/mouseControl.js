@@ -1,6 +1,7 @@
+var IsTouchDevice = false;
+
 var mouseMoved = false;
 var mouseMoveTolerance = 1;
-
 
 var screenMouse = new THREE.Vector2(0, 0);
 var lastScreenMouseLeftDn = new THREE.Vector2(0, 0);
@@ -292,4 +293,9 @@ function onDocumentMouseUp(event) {
 
         }
     }
+}
+
+function is_touch_device() {
+  return 'ontouchstart' in window // works on most browsers 
+      || 'onmsgesturechange' in window; // works on ie10
 }

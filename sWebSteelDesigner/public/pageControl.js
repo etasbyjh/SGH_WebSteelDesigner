@@ -57,6 +57,9 @@ var receivedData;
 
 
 $(document).ready(function () {
+    IsTouchDevice = is_touch_device();
+    console.log(IsTouchDevice);
+
     Initiate3DView();
 
     setTimeout(ActivateClientInfo, 1000);
@@ -103,7 +106,7 @@ $(document).ready(function () {
     $('#costFactors').hide();
     $('#receive').click(function () {
         $.getJSON("fromRH.json", function (jsonMo) {
-            GetThreeMeshesFromJSON(scene, sceneObjects, jsonMo);
+            GetStructuralThreeMeshesFromJSON(scene, sceneObjects, jsonMo, 0);
             UpdateResultInfo(jsonMo);
         });
 
@@ -122,32 +125,32 @@ function DataCommunication() {
 
     UpdateSceneHistory("Sending Building Geometry To SGH");
 
-    var modelJson = GetJsonModelFromScene(boxObjects);
+    var jsonPackage = GetsJsonDataPackageFromInitialScene(boxObjects);
+    jsonPackage.clientInfo = new sJsonClientInfo();
+    jsonPackage.clientInfo.clientOccupation = clientOccupation;
+    jsonPackage.clientInfo.clientFirmName = clientFirmName;
+    jsonPackage.clientInfo.clientEmail = clientEmail;
+    jsonPackage.clientInfo.clientFirstName = clientFirstName;
+    jsonPackage.clientInfo.clientLastName = clientLastName;
+    jsonPackage.clientInfo.clientComment = clientComment;
 
-    modelJson.buildingInfo.sceneUnit = sceneUnit;
-    modelJson.buildingInfo.buildingType = buildingType;
-    modelJson.buildingInfo.targetFloorHeight = targetFloorHeight;
-    modelJson.buildingInfo.maxFloorDepth = maxFloorDepth;
-    modelJson.buildingInfo.wallToWindowRatio = wallToWindowRatio;
-    modelJson.buildingInfo.maxXColSpan = maxXColSpan;
-    modelJson.buildingInfo.maxYColSpan = maxYColSpan;
-    modelJson.buildingInfo.maxBeamSpan = maxBeamSpan;
-    modelJson.buildingInfo.slabThickness = slabThickness;
-    modelJson.buildingInfo.metalDeckThickness = metalDeckThickness;
-    modelJson.buildingInfo.slabEdgeDepth = slabEdgeDepth;
-    modelJson.buildingInfo.designStrength = designStrength;
-    modelJson.buildingInfo.designStiffness = designStiffness;
-    modelJson.buildingInfo.clientOccupation = clientOccupation;
-    modelJson.buildingInfo.clientFirmName = clientFirmName;
-    modelJson.buildingInfo.clientEmail = clientEmail;
-    modelJson.buildingInfo.clientFirstName = clientFirstName;
-    modelJson.buildingInfo.clientLastName = clientLastName;
-    modelJson.buildingInfo.clientComment = clientComment;
-
-    var jasonfied = modelJson.ToJSON();
-
+    jsonPackage.models[0].modelInputs.sceneUnit = sceneUnit;
+    jsonPackage.models[0].modelInputs.buildingType = buildingType;
+    jsonPackage.models[0].modelInputs.targetFloorHeight = targetFloorHeight;
+    jsonPackage.models[0].modelInputs.maxFloorDepth = maxFloorDepth;
+    jsonPackage.models[0].modelInputs.wallToWindowRatio = wallToWindowRatio;
+    jsonPackage.models[0].modelInputs.maxXColSpan = maxXColSpan;
+    jsonPackage.models[0].modelInputs.maxYColSpan = maxYColSpan;
+    jsonPackage.models[0].modelInputs.maxBeamSpan = maxBeamSpan;
+    jsonPackage.models[0].modelInputs.slabThickness = slabThickness;
+    jsonPackage.models[0].modelInputs.metalDeckThickness = metalDeckThickness;
+    jsonPackage.models[0].modelInputs.slabEdgeDepth = slabEdgeDepth;
+    jsonPackage.models[0].modelInputs.designStrength = designStrength;
+    jsonPackage.models[0].modelInputs.designStiffness = designStiffness;
+    var jasonfied = jsonPackage.Jsonify();
 
     var result = "";
+
     $.ajax({
         type: "POST",
         url: "AskSGHservice.asmx/AskSGH",

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using sJsonHandler;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,33 +24,21 @@ namespace sWebSteelDesigner
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public string AskSGH(string jsonStr)
         {
+            //new Json Class Test
+            sJsonDataPackage dataPack = sJsonDataPackage.Objectify(jsonStr);
+            sJsonClientInfo clientInfo = dataPack.clientInfo;
+
+            string firmName = clientInfo.clientFirmName;
+            string email = clientInfo.clientEmail;
 
             SaveClientInfo("SGH", "mdkonicki@sgh.com");
+
+            //For new Json Class C# Test in Grasshopper
+            string path = @"C:\Users\jlee\Documents\SGHWebApplications\sWebSteelDesigner\fromWeb.json";
+            File.WriteAllText(path, jsonStr);
+
+
             return "SUCCESS";
-
-
-            //string readPath = @"C:\Users\jlee\Documents\SGHWebApplications\sWebSteelDesigner\fromRH.json";
-            //if (File.Exists(readPath))
-            //{
-            //    File.Delete(readPath);
-            //}
-
-            //string path = @"C:\Users\jlee\Documents\SGHWebApplications\sWebSteelDesigner\fromWeb.json";
-  
-            //File.WriteAllText(path, jsonStr);
-            
-
-            //if (File.Exists(readPath))
-            //{
-            //    return File.ReadAllText(readPath);
-            //}
-            //else
-            //{
-            //    return "";
-            //}
-
-
-            
         }
         
         bool SaveClientInfo(string clientFirmName, string clientEmail)
@@ -96,5 +85,18 @@ namespace sWebSteelDesigner
     }
 
 
-   
+    //string readPath = @"C:\Users\jlee\Documents\SGHWebApplications\sWebSteelDesigner\fromRH.json";
+    //if (File.Exists(readPath))
+    //{
+    //    File.Delete(readPath);
+    //}
+    //if (File.Exists(readPath))
+    //{
+    //    return File.ReadAllText(readPath);
+    //}
+    //else
+    //{
+    //    return "";
+    //}
+
 }
