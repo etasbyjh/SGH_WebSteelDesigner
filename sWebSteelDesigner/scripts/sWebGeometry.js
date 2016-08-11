@@ -34,6 +34,7 @@ function InitiateRecDrawingAid(ThreeScene, drawModeIn) {
     recDrawingAid = new SGH_RecDrawingAid(ThreeScene, drawModeIn);
 
     UpdateSceneHistory("Drawing " + drawModeIn);
+    TouchRemoveIconControl(true);
 
     $(document).keyup(function (e) {
         if (e.keyCode == 27) {
@@ -41,9 +42,18 @@ function InitiateRecDrawingAid(ThreeScene, drawModeIn) {
             recDrawingAid.RemoveDrawingAid(ThreeScene);
 
             DeactivateCursorText();
+            TouchRemoveIconControl(false);
             //UpdateSceneHistory("Canceled: Drawing " + drawModeIn);
         }
-    })
+    });
+
+    $('#exitDrawMode').click(function () {
+        drawMode = "View";
+        recDrawingAid.RemoveDrawingAid(ThreeScene);
+
+        DeactivateCursorText();
+        TouchRemoveIconControl(false);
+    });
 }
 
 function SetObjDefaultMaterial(Obj) {
@@ -158,11 +168,10 @@ SGH_RecDrawingAid.prototype.FinalizeDrawing = function (type, threeScene) {
     console.log("View Mode");
 
     UpdateSceneHistory(type + ' Added, (X:' + this.drawingBoundaryMesh.scale.x + sceneUnit + ' Y:' + this.drawingBoundaryMesh.scale.z + sceneUnit + ' Z:' + this.drawingBoundaryMesh.scale.y + sceneUnit + ')');
+    TouchRemoveIconControl(false);
 }
 
 SGH_RecDrawingAid.prototype.UpdateDrawingAid = function (hoveringPointIn, clickedPointIn, verticalRef, threeScene) {
-
-
 
     var hoveringPoint = hoveringPointIn;
     var clickedPoint = clickedPointIn;

@@ -22,34 +22,47 @@ var verticalObjects = [];
 var gui;
 var sprite;
 
+function DrawingBoxes() {
+    if (drawMode == "Volume" || drawMode == "Void") {
+        if (IsTouchDevice) {
+            if (recDrawingAid.clickedPoints.length == 0) {
+                //ResetSceneMouse3dDownCondition();
+                if (lastSceneMouse3dLeftDn.length() > 0) {
+                    recDrawingAid.clickedPoints.push(lastSceneMouse3dLeftDn);
+                }
+            } else if (recDrawingAid.clickedPoints.length == 1) {
+                recDrawingAid.UpdateDrawingAid(sceneMouse3d_ground, lastSceneMouse3dLeftUp, sceneMouse3d_Vertical, scene);
+            } else if (recDrawingAid.clickedPoints.length == 2) {
+                //ResetSceneMouse3dDownCondition();
+                if (lastSceneMouse3dLeftDn.length() > 0) {
+                    verticalPl.position.copy(recDrawingAid.lastClicked);
+                    recDrawingAid.UpdateDrawingAid(sceneMouse3d_ground, lastSceneMouse3dLeftUp, sceneMouse3d_Vertical, scene);
+                }
+            } else if (recDrawingAid.clickedPoints.length == 3) {
+                recDrawingAid.FinalizeDrawing(drawMode, scene);
+            }
+
+        } else {
+            if (recDrawingAid.clickedPoints.length == 2) verticalPl.position.copy(recDrawingAid.lastClicked);
+
+            recDrawingAid.UpdateDrawingAid(sceneMouse3d_ground, lastSceneMouse3dLeftDn, sceneMouse3d_Vertical, scene);
+
+            if (recDrawingAid.clickedPoints.length == 3) {
+                recDrawingAid.FinalizeDrawing(drawMode, scene);
+            }
+        }
+
+    }
+}
+
 function UpdateView() {
 
     UpdateGridState();
     UpdateControlState();
     UpdateCursor();
 
-    if (drawMode == "Volume" || drawMode == "Void") {
-        if (recDrawingAid.clickedPoints.length == 2) verticalPl.position.copy(recDrawingAid.lastClicked);
-        recDrawingAid.UpdateDrawingAid(sceneMouse3d_ground, lastSceneMouse3dLeftDn, sceneMouse3d_Vertical, scene);
-        if (recDrawingAid.clickedPoints.length == 3) {
-            //cal Volume object count...
-            recDrawingAid.FinalizeDrawing(drawMode, scene);
-            //sceneObjects.push(recFinal);
-            //boxObjects.push(recFinal);
-        }
-    }
+    DrawingBoxes();
 
-    //    if (drawMode == "Delete") {
-    //        var lastHoveringObj;
-    //        if (ObjOnHovering) {
-    //            lastHoveringObj = ObjOnHovering;
-    //            SetObjHighlightedMaterial(ObjOnHovering);
-    //        }
-    //        if (lastHoveringObj != ObjOnHovering) {
-    //            SetObjDefaultMaterial(lastHoveringObj);
-    //        }
-    //    }
-    //    console.log(ObjOnHovering);
 
     if (ObjOnClicked) {
         if (drawMode == "Delete") {
@@ -92,9 +105,15 @@ function Initiate3DView() {
     SetBaseAxis();
 
     //mouse control
-    renderer.domElement.addEventListener('mousemove', onDocumentMouseMove, false);
-    renderer.domElement.addEventListener('mousedown', onDocumentMouseDown, false);
-    renderer.domElement.addEventListener('mouseup', onDocumentMouseUp, false);
+    if (IsTouchDevice) {
+        renderer.domElement.addEventListener('touchmove', onDocumentTouchMove, false);
+        renderer.domElement.addEventListener('touchstart', onDocumentTouchStart, false);
+        renderer.domElement.addEventListener('touchend', onDocumentTouchEnd, false);
+    } else {
+        renderer.domElement.addEventListener('mousemove', onDocumentMouseMove, false);
+        renderer.domElement.addEventListener('mousedown', onDocumentMouseDown, false);
+        renderer.domElement.addEventListener('mouseup', onDocumentMouseUp, false);
+    }
     //
     //    //resizing why here?
     //    //after resizing mouse location issue

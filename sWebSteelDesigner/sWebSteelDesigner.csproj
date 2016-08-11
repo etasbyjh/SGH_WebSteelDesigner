@@ -132,6 +132,7 @@
     <Content Include="references\semantic\dist\themes\default\assets\fonts\icons.woff" />
     <Content Include="references\semantic\dist\themes\default\assets\fonts\icons.woff2" />
     <None Include="Properties\PublishProfiles\Beta.pubxml" />
+    <None Include="scripts\_references.js" />
     <Content Include="SteelDesiDB.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>SteelDesiDB.designer.cs</LastGenOutput>
@@ -146,12 +147,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="public\sModuleTest.js" />
-    <Content Include="public\sJsonDataPackageJS.js" />
-    <Content Include="public\mouseControl.js" />
-    <Content Include="public\pageControl.js" />
-    <Content Include="public\sWebGeometry.js" />
-    <Content Include="public\threejsControl.js" />
+    <Content Include="scripts\sModuleTest.js" />
+    <Content Include="scripts\sJsonDataPackageJS.js" />
+    <Content Include="scripts\mouseControl.js" />
+    <Content Include="scripts\pageControl.js" />
+    <Content Include="scripts\sWebGeometry.js" />
+    <Content Include="scripts\threejsControl.js" />
     <Content Include="references\semantic\dist\components\accordion.css" />
     <Content Include="references\semantic\dist\components\accordion.js" />
     <Content Include="references\semantic\dist\components\accordion.min.css" />
@@ -398,6 +399,9 @@
       <Project>{c7c6a058-6511-4118-af8c-519cb7246c23}</Project>
       <Name>sJsonHandler</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="public\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

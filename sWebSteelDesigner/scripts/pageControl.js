@@ -63,7 +63,7 @@ $(document).ready(function () {
     Initiate3DView();
 
     setTimeout(ActivateClientInfo, 1000);
-
+    
     ActivateUIs();
     UpdateSceneInfo();
 
@@ -147,6 +147,7 @@ function DataCommunication() {
     jsonPackage.models[0].modelInputs.slabEdgeDepth = slabEdgeDepth;
     jsonPackage.models[0].modelInputs.designStrength = designStrength;
     jsonPackage.models[0].modelInputs.designStiffness = designStiffness;
+
     var jasonfied = jsonPackage.Jsonify();
 
     var result = "";
@@ -427,6 +428,12 @@ function UpdateSceneInfo() {
 }
 
 function ActivateUIs() {
+
+    //    $('#touchUI').hide();
+    //    if (IsTouchDevice) {
+    //        $('#touchUI').show();
+    //    }
+
     ShowToolTips();
 
     $('#SceneSetIcon').click(function () {
@@ -474,13 +481,19 @@ function ShowToolTips() {
     })
 }
 
-function IconClickActions() {
-    $('.icon').click(function () {
-        $(this).transition({
-            animation: 'pulse',
-            duration: 200
-        })
-    })
+function TouchRemoveIconControl(ToActive) {
+    var qyObj = $('#exitDrawMode');
+    if (ToActive) {
+        qyObj.removeClass('disabled');
+        qyObj.css({
+            '-webkit-transform': 'scale(1.6)'
+        });
+    } else {
+        qyObj.addClass('disabled');
+        qyObj.css({
+            '-webkit-transform': 'scale(1)'
+        });
+    }
 }
 
 function numberWithCommas(x) {

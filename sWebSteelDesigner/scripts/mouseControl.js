@@ -1,5 +1,8 @@
 var IsTouchDevice = false;
 
+var windowHalfX = window.innerHeight / 2;
+var windowHalfY = window.innerHeight / 2;
+
 var mouseMoved = false;
 var mouseMoveTolerance = 1;
 
@@ -12,6 +15,7 @@ var sceneMouse3d_ground = new THREE.Vector3(0, 0, 0);
 var sceneMouse3d_Vertical = new THREE.Vector3(0, 0, 0);
 var lastSceneMouse3dLeftDn = new THREE.Vector3(0, 0, 0);
 var lastSceneMouse3dRightDn = new THREE.Vector3(0, 0, 0);
+var lastSceneMouse3dLeftUp = new THREE.Vector3(0, 0, 0);
 
 var screenChanging = false;
 
@@ -154,6 +158,7 @@ function UpdateCursor() {
 function ResetSceneMouse3dDownCondition() {
     lastSceneMouse3dLeftDn = new THREE.Vector3(0, 0, 0);
     lastSceneMouse3dRightDn = new THREE.Vector3(0, 0, 0);
+    lastSceneMouse3dLeftUp = new THREE.Vector3(0, 0, 0);
 }
 //check if I can fix this...
 function IsClickedAtDifferentLocationInXYPlane(clickedNow, lastClicked, detectTol) {
@@ -184,8 +189,59 @@ function getIntersectionAtScreenCoordinatesBy(x, y, Objs) {
     if (intersects.length > 0) {
         return intersects[0];
     }
-
+    
     return null;
+}
+
+function onDocumentTouchMove(event) {
+    if (event.touches.length === 1) {
+        var clientX = event.touches[0].pageX;
+        var clientY = event.touches[0].pageY;
+        screenMouse.x = clientX;
+        screenMouse.y = clientY;
+
+        if (Math.abs(lastScreenMouseLeftDn.x - clientX) > 10 || Math.abs(lastScreenMouseRightDn.y - clientY) > 10) mouseMoved = true;
+
+        event.preventDefault();
+
+        var mouseIntersect_ground = getIntersectionAtScreenCoordinatesBy(clientX, clientY, groundObjects);
+        if (mouseIntersect_ground) {
+            sceneMouse3d_ground = mouseIntersect_ground.point;
+        }
+
+        var mouseIntersect_vertical = getIntersectionAtScreenCoordinatesBy(clientX, clientY, verticalObjects);
+        if (mouseIntersect_vertical) {
+            sceneMouse3d_Vertical = mouseIntersect_vertical.point;
+        }
+
+        var mouseIntersect = getIntersectionAtScreenCoordinatesBy(clientX, clientY, sceneObjects);
+        if (mouseIntersect) {
+            sceneMouse3d = mouseIntersect.point;
+            if (ObjOnClicked === null) {
+                ObjOnHovering = mouseIntersect.object;
+            }
+        } else {
+            ObjOnHovering = null;
+        }
+
+        //drag
+        if (ObjOnClicked) {
+            var mouseIntersect_OffsetPlane = getIntersectionAtScreenCoordinatesBy(clientX, clientY, ObjDragPlane);
+            if (mouseIntersect_OffsetPlane) {
+                var tempPt = mouseIntersect_OffsetPlane.point.sub(ObjDragOffset);
+                if (mouseGridOn) {
+                    SetObjectLoactionOnGridSnap(ObjOnClicked, tempPt);
+                } else {
+                    ObjOnClicked.position.copy(tempPt);
+                }
+            }
+        } else {
+            if (mouseIntersect) {
+                ObjDragPlane.position.copy(mouseIntersect.object.position);
+                ObjDragPlane.lookAt(camera.position);
+            }
+        }
+    }
 }
 
 function onDocumentMouseMove(event) {
@@ -239,6 +295,45 @@ function onDocumentMouseMove(event) {
     }
 }
 
+
+function onDocumentTouchStart(event) {
+    if (event.touches.length === 1) {
+        var clientX = event.touches[0].pageX;
+        var clientY = event.touches[0].pageY;
+        screenMouse.x = clientX;
+        screenMouse.y = clientY;
+
+        mouseMoved = false;
+        lastScreenMouseLeftDn.x = clientX;
+        lastScreenMouseLeftDn.y = clientY;
+        event.preventDefault();
+
+        if (drawMode == "View" || drawMode == "Delete") {
+            var mouseIntersect = getIntersectionAtScreenCoordinatesBy(clientX, clientY, sceneObjects);
+            if (mouseIntersect) {
+                ObjOnClicked = mouseIntersect.object;
+                ObjOnHovering = null;
+            } else {
+                //SetObjDefaultMaterial(ObjOnClicked);
+                ObjOnClicked = null;
+            }
+        }
+
+        var mouseIntersect_ground = getIntersectionAtScreenCoordinatesBy(clientX, clientY, groundObjects);
+        if (mouseIntersect_ground) {
+            sceneMouse3d = mouseIntersect_ground.point;
+            lastSceneMouse3dLeftDn = mouseIntersect_ground.point;
+        }
+
+        //cal offset
+        var mouseIntersect_OffsetPlane = getIntersectionAtScreenCoordinatesBy(clientX, clientY, ObjDragPlane);
+        if (mouseIntersect_OffsetPlane) {
+            ObjDragOffset.copy(mouseIntersect_OffsetPlane.point).sub(ObjDragPlane.position);
+        }
+
+    }
+}
+
 function onDocumentMouseDown(event) {
     mouseMoved = false;
     lastScreenMouseLeftDn.x = event.clientX;
@@ -277,6 +372,35 @@ function onDocumentMouseDown(event) {
     }
 }
 
+function onDocumentTouchEnd(event) {
+    if (event.touches.length === 1) {
+        var clientX = event.touches[0].pageX;
+        var clientY = event.touches[0].pageY;
+        screenMouse.x = clientX;
+        screenMouse.y = clientY;
+
+        event.preventDefault();
+
+        var mouseIntersect_ground = getIntersectionAtScreenCoordinatesBy(clientX, clientY, groundObjects);
+        if (mouseIntersect_ground) {
+            sceneMouse3d = mouseIntersect_ground.point;
+            lastSceneMouse3dLeftUp = mouseIntersect_ground.point;
+        }
+
+        //cal offset
+        var mouseIntersect_OffsetPlane = getIntersectionAtScreenCoordinatesBy(clientX, clientY, ObjDragPlane);
+        if (mouseIntersect_OffsetPlane) {
+            ObjDragOffset.copy(mouseIntersect_OffsetPlane.point).sub(ObjDragPlane.position);
+        }
+
+        if (ObjOnClicked) {
+            SetObjDefaultMaterial(ObjOnClicked);
+            //drag
+            ObjOnClicked = null;
+        }
+    }
+}
+
 function onDocumentMouseUp(event) {
     //if (mouseMoved) return;
 
@@ -290,12 +414,11 @@ function onDocumentMouseUp(event) {
             SetObjDefaultMaterial(ObjOnClicked);
             //drag
             ObjOnClicked = null;
-
         }
     }
 }
 
 function is_touch_device() {
-  return 'ontouchstart' in window // works on most browsers 
-      || 'onmsgesturechange' in window; // works on ie10
+    return 'ontouchstart' in window // works on most browsers 
+        || 'onmsgesturechange' in window; // works on ie10
 }

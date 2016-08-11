@@ -32,6 +32,10 @@
             SINGLE_BACKSTEP = -1,
             BIG_BACKSTEP = -2,
 
+            // used to manage docuemnt bound events.
+            // Use this so that we can distinguish between which document events are bound to which range.
+            currentRange = 0,
+
             returnedValue;
 
         $allModules
@@ -61,6 +65,8 @@
                     element = this,
                     instance = $module.data(moduleNamespace),
 
+                    docuementEventIdentifier,
+
                     value,
                     position,
                     secondPos,
@@ -75,6 +81,10 @@
 
                     initialize: function () {
                         module.debug('Initializing range slider', settings);
+
+                        currentRange += 1;
+                        docuementEventIdentifier = currentRange;
+
                         isTouch = module.setup.testOutTouch();
                         module.setup.layout();
 
@@ -230,7 +240,7 @@
                             $module.on('keydown' + eventNamespace, module.event.keydown);
                         },
                         globalKeyboardEvents: function () {
-                            $(document).on('keydown' + eventNamespace, module.event.activateFocus);
+                            $(document).on('keydown' + eventNamespace + docuementEventIdentifier, module.event.activateFocus);
                         },
                         mouseEvents: function () {
                             module.verbose('Binding mouse events');
@@ -257,6 +267,7 @@
                             $module.on('touchstart' + eventNamespace, module.event.down);
                         },
                         slidingEvents: function () {
+                            // these don't need the identifier because we only ever want one of them to be registered with document
                             module.verbose('Binding page wide events while handle is being draged');
                             if (module.is.touch()) {
                                 $(document).on('touchmove' + eventNamespace, module.event.move);
@@ -279,6 +290,7 @@
                             $module.off('keydown' + eventNamespace);
                             $module.off('focusout' + eventNamespace);
                             $(window).off('resize' + eventNamespace);
+                            $(document).off('keydown' + eventNamespace + docuementEventIdentifier, module.event.activateFocus);
                         },
                         slidingEvents: function () {
                             if (module.is.touch()) {
@@ -315,13 +327,9 @@
                                 if (module.get.step() == 0 || settings.smooth) {
                                     module.update.position(newPos);
                                     settings.onMove.call(element, module.determine.value(newPos));
-                                    //
-                                    module.set.value(module.determine.value(newPos));
                                 } else {
                                     module.update.value(module.determine.value(newPos), function () {
                                         settings.onMove.call(element, value);
-                                        //
-                                        module.set.value(module.determine.value(newPos));
                                     });
                                 }
                             }
@@ -590,11 +598,16 @@
                             return adjustedPos;
                         },
                         eventPos: function (event, originalEvent) {
-                            if (module.is.vertical()) {
-                                return module.is.touch() ? originalEvent.originalEvent.touches[0].pageY : (typeof event.pageY != 'undefined') ? event.pageY : originalEvent.pageY;
-                            } else {
-                                return module.is.touch() ? originalEvent.originalEvent.touches[0].pageX : (typeof event.pageX != 'undefined') ? event.pageX : originalEvent.pageX;
+                            if (module.is.touch()) {
+                                var
+                                    touchY = event.changedTouches[0].pageY || event.touches[0].pageY,
+                                    touchX = event.changedTouches[0].pageX || event.touches[0].pageX;
+                                return module.is.vertical() ? touchY : touchX;
                             }
+                            var
+                                clickY = event.pageY || originalEvent.pageY,
+                                clickX = event.pageX || originalEvent.pageX;
+                            return module.is.vertical() ? clickY : clickX;
                         },
                         value: function (position) {
                             var

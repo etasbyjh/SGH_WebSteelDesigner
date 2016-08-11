@@ -18,12 +18,13 @@
     <script type="text/javascript" src="references/threejs/three.min.js"></script>
     <script type="text/javascript" src="references/threejs/controls/TrackballControls.js"></script>
     <script type="text/javascript" src="references/threejs/controls/OrbitControls.js"></script>
-    <script type="text/javascript" src="public/sModuleTest.js"></script>
-    <script type="text/javascript" src="public/mouseControl.js"></script>
-    <script type="text/javascript" src="public/pageControl.js"></script>
-    <script type="text/javascript" src="public/sWebGeometry.js"></script>
-    <script type="text/javascript" src="public/sJsonDataPackageJS.js"></script>
-    <script type="text/javascript" src="public/threejsControl.js"></script>
+
+    <script type="text/javascript" src="scripts/sModuleTest.js"></script>
+    <script type="text/javascript" src="scripts/mouseControl.js"></script>
+    <script type="text/javascript" src="scripts/pageControl.js"></script>
+    <script type="text/javascript" src="scripts/sWebGeometry.js"></script>
+    <script type="text/javascript" src="scripts/sJsonDataPackageJS.js"></script>
+    <script type="text/javascript" src="scripts/threejsControl.js"></script>
 
 
 </head>
@@ -95,7 +96,7 @@
                             </div>
                             <div class="content">
                                 <p id="mouseGridSnap"></p>
-                                <div class="ui inverted labeled orange small hover range" id="mouseGridSnapRn"></div>
+                                <div class="ui inverted labeled orange small range" id="mouseGridSnapRn"></div>
                             </div>
                         </div>
                     </div>
@@ -382,7 +383,15 @@
     </div>
     </div>
 
+    <div class="grid" id="touchUI">
+        <div class="ui equal width grid">
+            <div class="column">
+                <i class="ui grey huge disabled remove icon" id="exitDrawMode"></i>
+            </div>
+        </div>
+    </div>
     <div class="grid" id="lowerUI">
+
         <div class="ui equal width grid">
             <div class="column">
                 <i class="ui inverted blue huge cube icon" id="drawVol" data-content="Draw A Building Volume Box" data-variation="inverted"></i>
