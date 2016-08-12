@@ -147,9 +147,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="scripts\sModuleTest.js" />
     <Content Include="scripts\sJsonDataPackageJS.js" />
-    <Content Include="scripts\mouseControl.js" />
+    <Content Include="scripts\uiControl.js" />
     <Content Include="scripts\pageControl.js" />
     <Content Include="scripts\sWebGeometry.js" />
     <Content Include="scripts\threejsControl.js" />

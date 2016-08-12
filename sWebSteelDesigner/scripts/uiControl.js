@@ -1,7 +1,7 @@
-var IsTouchDevice = false;
-
 var windowHalfX = window.innerHeight / 2;
 var windowHalfY = window.innerHeight / 2;
+
+var IsTouchDevice = false;
 
 var mouseMoved = false;
 var mouseMoveTolerance = 1;
@@ -13,9 +13,10 @@ var lastScreenMouseRightDn = new THREE.Vector2(0, 0);
 var sceneMouse3d = new THREE.Vector3(0, 0, 0);
 var sceneMouse3d_ground = new THREE.Vector3(0, 0, 0);
 var sceneMouse3d_Vertical = new THREE.Vector3(0, 0, 0);
+
 var lastSceneMouse3dLeftDn = new THREE.Vector3(0, 0, 0);
-var lastSceneMouse3dRightDn = new THREE.Vector3(0, 0, 0);
 var lastSceneMouse3dLeftUp = new THREE.Vector3(0, 0, 0);
+var lastSceneMouse3dRightDn = new THREE.Vector3(0, 0, 0);
 
 var screenChanging = false;
 
@@ -104,7 +105,12 @@ function UpdateCursorText(xOverride, zOverride, yOverride, threeObj) {
         my = yOverride;
     }
 
-    document.body.onmousemove = moveCursor;
+    if (IsTouchDevice) {
+        document.body.ontouchmove = moveCursor;
+    }
+    else {
+        document.body.onmousemove = moveCursor;
+    }
 
     var txx = "x:" + mx + " y:" + mz + " z:" + my;
     if (threeObj != null) {

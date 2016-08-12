@@ -63,6 +63,8 @@ $(document).ready(function () {
     Initiate3DView();
 
     setTimeout(ActivateClientInfo, 1000);
+
+    
     
     ActivateUIs();
     UpdateSceneInfo();
@@ -133,6 +135,7 @@ function DataCommunication() {
     jsonPackage.clientInfo.clientFirstName = clientFirstName;
     jsonPackage.clientInfo.clientLastName = clientLastName;
     jsonPackage.clientInfo.clientComment = clientComment;
+    
 
     jsonPackage.models[0].modelInputs.sceneUnit = sceneUnit;
     jsonPackage.models[0].modelInputs.buildingType = buildingType;
@@ -429,10 +432,10 @@ function UpdateSceneInfo() {
 
 function ActivateUIs() {
 
-    //    $('#touchUI').hide();
-    //    if (IsTouchDevice) {
-    //        $('#touchUI').show();
-    //    }
+       $('#touchUI').hide();
+        if (IsTouchDevice) {
+           $('#touchUI').show();
+        }
 
     ShowToolTips();
 

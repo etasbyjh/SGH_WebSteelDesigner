@@ -25,22 +25,7 @@ var sprite;
 function DrawingBoxes() {
     if (drawMode == "Volume" || drawMode == "Void") {
         if (IsTouchDevice) {
-            if (recDrawingAid.clickedPoints.length == 0) {
-                //ResetSceneMouse3dDownCondition();
-                if (lastSceneMouse3dLeftDn.length() > 0) {
-                    recDrawingAid.clickedPoints.push(lastSceneMouse3dLeftDn);
-                }
-            } else if (recDrawingAid.clickedPoints.length == 1) {
-                recDrawingAid.UpdateDrawingAid(sceneMouse3d_ground, lastSceneMouse3dLeftUp, sceneMouse3d_Vertical, scene);
-            } else if (recDrawingAid.clickedPoints.length == 2) {
-                //ResetSceneMouse3dDownCondition();
-                if (lastSceneMouse3dLeftDn.length() > 0) {
-                    verticalPl.position.copy(recDrawingAid.lastClicked);
-                    recDrawingAid.UpdateDrawingAid(sceneMouse3d_ground, lastSceneMouse3dLeftUp, sceneMouse3d_Vertical, scene);
-                }
-            } else if (recDrawingAid.clickedPoints.length == 3) {
-                recDrawingAid.FinalizeDrawing(drawMode, scene);
-            }
+            UpdateCursorText();
 
         } else {
             if (recDrawingAid.clickedPoints.length == 2) verticalPl.position.copy(recDrawingAid.lastClicked);
