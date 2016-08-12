@@ -28,10 +28,7 @@ namespace sWebSteelDesigner
             sJsonDataPackage dataPack = sJsonDataPackage.Objectify(jsonStr);
             sJsonClientInfo clientInfo = dataPack.clientInfo;
 
-            string firmName = clientInfo.clientFirmName;
-            string email = clientInfo.clientEmail;
-
-            SaveClientInfo("SGH", "mdkonicki@sgh.com");
+            SaveClientInfo(clientInfo);
 
             //For new Json Class C# Test in Grasshopper
             string path = @"C:\Users\jlee\Documents\SGHWebApplications\sWebSteelDesigner\fromWeb.json";
@@ -41,14 +38,13 @@ namespace sWebSteelDesigner
             return "SUCCESS";
         }
         
-        bool SaveClientInfo(string clientFirmName, string clientEmail)
+        bool SaveClientInfo(sJsonClientInfo clientInfo)
         {
-            //eventually this function will require a concrete object that will contain all of the client info
-            
+           
             SteelDesiDBDataContext SDDB = new SteelDesiDBDataContext();
             //check to see if this information is already in the database based on the key (clientfirmname and clientemail)
             ClientInfo CI = (from c in SDDB.ClientInfos
-                                  where c.clientEmail == clientEmail && c.clientFirmName == clientFirmName
+                                  where c.clientEmail == clientInfo.clientEmail && c.clientFirmName == clientInfo.clientFirmName
                                   select c).FirstOrDefault();
 
             //if this user already submitted their info we do nothing otherwise create a new clientInfo object and
@@ -59,12 +55,12 @@ namespace sWebSteelDesigner
                 CI = new ClientInfo
                 {
                     clientInfoID = Guid.NewGuid(),
-                    clientFirmName = clientFirmName,
-                    clientEmail = clientEmail,
-                    clientComment = "",
-                    clientFirstName = "",
-                    clientLastName = "",
-                    clientOccupation = ""
+                    clientFirmName = clientInfo.clientFirmName,
+                    clientEmail = clientInfo.clientEmail,
+                    clientComment = clientInfo.clientComment,
+                    clientFirstName = clientInfo.clientFirstName,
+                    clientLastName = clientInfo.clientLastName,
+                    clientOccupation = clientInfo.clientOccupation
                 };
                 //send the clientinfo object to the database
                 SDDB.ClientInfos.InsertOnSubmit(CI);
