@@ -5,6 +5,8 @@ var VoidDefaultColor = 0xff6666;
 var VoidHighlightedColor = 0xffcccc;
 var VoidOutlineDefaultColor = 0x993333;
 
+var recDrawingAid;
+
 var BeamColor = 0xff0000;
 var GirderColor = 0x1e00ff;
 
@@ -26,6 +28,27 @@ function SGH_RecDrawingAid(threeScene, type) {
     threeScene.add(this.drawingPoint);
     threeScene.add(this.drawingBoundaryMesh);
     threeScene.add(this.drawingBoundaryLines);
+}
+
+function DrawingBoxesInScene() {
+    if (drawMode == "Volume" || drawMode == "Void") {
+
+        var clickedLoc;
+        if (IsTouchDevice) {
+            clickedLoc = lastSceneMouse3dLeftUp;
+        }
+        else {
+            clickedLoc = lastSceneMouse3dLeftDn;
+        }
+
+        if (recDrawingAid.clickedPoints.length == 2) verticalPl.position.copy(recDrawingAid.lastClicked);
+
+        recDrawingAid.UpdateDrawingAid(sceneMouse3d_ground, clickedLoc, sceneMouse3d_Vertical, scene);
+
+        if (recDrawingAid.clickedPoints.length == 3) {
+            recDrawingAid.FinalizeDrawing(drawMode, scene);
+        }
+    }
 }
 
 function InitiateRecDrawingAid(ThreeScene, drawModeIn) {
@@ -54,85 +77,6 @@ function InitiateRecDrawingAid(ThreeScene, drawModeIn) {
         DeactivateCursorText();
         TouchRemoveIconControl(false);
     });
-}
-
-function SetObjDefaultMaterial(Obj) {
-    if (Obj) {
-        if (Obj.userData.name.includes('Volume')) {
-            Obj.material.color.setHex(BoxDefaultColor);
-        } else if (Obj.userData.name.includes('Void')) {
-            Obj.material.color.setHex(VoidDefaultColor);
-            Obj.material.opacity = 0.4;
-        }
-    }
-}
-
-function SetObjHighlightedMaterial(Obj) {
-    if (Obj) {
-        if (Obj.userData.name.includes('Volume')) {
-            Obj.material.color.setHex(BoxHighlightedColor);
-        }
-        if (Obj.userData.name.includes('Void')) {
-            Obj.material.color.setHex(VoidHighlightedColor);
-            Obj.material.opacity = 0.6;
-        }
-    }
-}
-
-SGH_RecDrawingAid.prototype.GetDrawingBoundaryLines = function (type) {
-    var BoxLines = new THREE.BoxHelper(this.drawingBoundaryMesh);
-    BoxLines.userData.name = "DrawingAid";
-    BoxLines.material.transparent = true;
-    BoxLines.material.opacity = 0.2;
-    if (this.objType == "Volume") {
-        BoxLines.material.color = BoxOutlineDefaultColor;
-    } else if (this.objType == "Void") {
-        BoxLines.material.color = VoidOutlineDefaultColor;
-    }
-    return BoxLines;
-}
-
-SGH_RecDrawingAid.prototype.GetDrawingBoundaryMesh = function () {
-    var geometry = new THREE.BoxGeometry(1, 1, 1);
-
-    var material = null;
-
-    if (this.objType == "Volume") {
-        material = new THREE.MeshBasicMaterial({
-            color: BoxDefaultColor,
-            opacity: 0.01,
-            transparent: true
-        });
-    } else if (this.objType == "Void") {
-        material = new THREE.MeshBasicMaterial({
-            color: VoidDefaultColor,
-            opacity: 0.01,
-            transparent: true
-        });
-    }
-
-    var boundary = new THREE.Mesh(geometry, material);
-
-    boundary.userData.name = "DrawingAid";
-    return boundary;
-}
-
-SGH_RecDrawingAid.prototype.GetPointSphere = function () {
-    var vertexGeo = new THREE.SphereGeometry(aidSize, 10, 10);
-    var vertexMat = new THREE.MeshBasicMaterial({
-        color: 0xb5121b
-    });
-    var vertexSphere = new THREE.Mesh(vertexGeo, vertexMat);
-    vertexSphere.userData.name = "DrawingAid";
-    return vertexSphere;
-}
-
-SGH_RecDrawingAid.prototype.RemoveDrawingAid = function (threeScene) {
-    for (var i = threeScene.children.length - 1; i >= 0; i--) {
-        if (threeScene.children[i].userData.name == "DrawingAid") {
-            threeScene.remove(scene.children[i]);
-        }
-    }
 }
 
 
@@ -268,6 +212,85 @@ SGH_RecDrawingAid.prototype.UpdateDrawingAid = function (hoveringPointIn, clicke
 
     }
 
+}
+
+function SetObjDefaultMaterial(Obj) {
+    if (Obj) {
+        if (Obj.userData.name.includes('Volume')) {
+            Obj.material.color.setHex(BoxDefaultColor);
+        } else if (Obj.userData.name.includes('Void')) {
+            Obj.material.color.setHex(VoidDefaultColor);
+            Obj.material.opacity = 0.4;
+        }
+    }
+}
+
+function SetObjHighlightedMaterial(Obj) {
+    if (Obj) {
+        if (Obj.userData.name.includes('Volume')) {
+            Obj.material.color.setHex(BoxHighlightedColor);
+        }
+        if (Obj.userData.name.includes('Void')) {
+            Obj.material.color.setHex(VoidHighlightedColor);
+            Obj.material.opacity = 0.6;
+        }
+    }
+}
+
+SGH_RecDrawingAid.prototype.GetDrawingBoundaryLines = function (type) {
+    var BoxLines = new THREE.BoxHelper(this.drawingBoundaryMesh);
+    BoxLines.userData.name = "DrawingAid";
+    BoxLines.material.transparent = true;
+    BoxLines.material.opacity = 0.2;
+    if (this.objType == "Volume") {
+        BoxLines.material.color = BoxOutlineDefaultColor;
+    } else if (this.objType == "Void") {
+        BoxLines.material.color = VoidOutlineDefaultColor;
+    }
+    return BoxLines;
+}
+
+SGH_RecDrawingAid.prototype.GetDrawingBoundaryMesh = function () {
+    var geometry = new THREE.BoxGeometry(1, 1, 1);
+
+    var material = null;
+
+    if (this.objType == "Volume") {
+        material = new THREE.MeshBasicMaterial({
+            color: BoxDefaultColor,
+            opacity: 0.01,
+            transparent: true
+        });
+    } else if (this.objType == "Void") {
+        material = new THREE.MeshBasicMaterial({
+            color: VoidDefaultColor,
+            opacity: 0.01,
+            transparent: true
+        });
+    }
+
+    var boundary = new THREE.Mesh(geometry, material);
+
+    boundary.userData.name = "DrawingAid";
+    return boundary;
+}
+
+SGH_RecDrawingAid.prototype.GetPointSphere = function () {
+    var vertexGeo = new THREE.SphereGeometry(aidSize, 10, 10);
+    var vertexMat = new THREE.MeshBasicMaterial({
+        color: 0xb5121b
+    });
+    var vertexSphere = new THREE.Mesh(vertexGeo, vertexMat);
+    vertexSphere.userData.name = "DrawingAid";
+    return vertexSphere;
+}
+
+SGH_RecDrawingAid.prototype.RemoveDrawingAid = function (threeScene) {
+    for (var i = threeScene.children.length - 1; i >= 0; i--) {
+        if (threeScene.children[i].userData.name == "DrawingAid") {
+            threeScene.remove(scene.children[i]);
+        }
+    }
 }
 
 SGH_RecDrawingAid.prototype.ScaleFactorToVertice = function () {

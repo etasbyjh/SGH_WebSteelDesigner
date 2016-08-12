@@ -22,32 +22,13 @@ var verticalObjects = [];
 var gui;
 var sprite;
 
-function DrawingBoxes() {
-    if (drawMode == "Volume" || drawMode == "Void") {
-        if (IsTouchDevice) {
-            UpdateCursorText();
-
-        } else {
-            if (recDrawingAid.clickedPoints.length == 2) verticalPl.position.copy(recDrawingAid.lastClicked);
-
-            recDrawingAid.UpdateDrawingAid(sceneMouse3d_ground, lastSceneMouse3dLeftDn, sceneMouse3d_Vertical, scene);
-
-            if (recDrawingAid.clickedPoints.length == 3) {
-                recDrawingAid.FinalizeDrawing(drawMode, scene);
-            }
-        }
-
-    }
-}
-
 function UpdateView() {
 
     UpdateGridState();
     UpdateControlState();
     UpdateCursor();
 
-    DrawingBoxes();
-
+    DrawingBoxesInScene();
 
     if (ObjOnClicked) {
         if (drawMode == "Delete") {

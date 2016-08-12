@@ -76,6 +76,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="sJsonHandler, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>netReferences\sJsonHandler.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -392,12 +396,6 @@
     <None Include="SteelDesiDB.dbml.layout">
       <DependentUpon>SteelDesiDB.dbml</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\sJsonHandler\sJsonHandler.csproj">
-      <Project>{c7c6a058-6511-4118-af8c-519cb7246c23}</Project>
-      <Name>sJsonHandler</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="public\" />

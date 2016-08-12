@@ -51,19 +51,21 @@ function SetMousesOnGridSnap(mouseIn) {
 }
 
 function SetObjectLoactionOnGridSnap(Obj, locPt) {
-    var tempPtsnap = SetMousesOnGridSnap(locPt);
-    tempPtsnap.y = locPt.y;
+    if (locPt) {
+        var tempPtsnap = SetMousesOnGridSnap(locPt);
+        tempPtsnap.y = locPt.y;
 
-    var box = new THREE.Box3().setFromObject(Obj);
-    var boxSize = box.size();
-    if ((boxSize.x / mouseGridSnap) % 2 !== 0) {
-        tempPtsnap.x += (mouseGridSnap * 0.5);
-    }
-    if ((boxSize.z / mouseGridSnap) % 2 !== 0) {
-        tempPtsnap.z += (mouseGridSnap * 0.5);
-    }
+        var box = new THREE.Box3().setFromObject(Obj);
+        var boxSize = box.size();
+        if ((boxSize.x / mouseGridSnap) % 2 !== 0) {
+            tempPtsnap.x += (mouseGridSnap * 0.5);
+        }
+        if ((boxSize.z / mouseGridSnap) % 2 !== 0) {
+            tempPtsnap.z += (mouseGridSnap * 0.5);
+        }
 
-    ObjOnClicked.position.copy(tempPtsnap);
+        ObjOnClicked.position.copy(tempPtsnap);
+    }
 }
 
 //three js controls
@@ -88,7 +90,7 @@ $(document).keydown(function (e) {
     }
 })
 
-//mouse controls
+//mouse / touch controls
 function UpdateCursorText(xOverride, zOverride, yOverride, threeObj) {
     var curText = $('#cursorText');
     var mx = Math.round(sceneMouse3d_ground.x, 1);
@@ -122,6 +124,10 @@ function UpdateCursorText(xOverride, zOverride, yOverride, threeObj) {
 
     var leftLoc = screenMouse.x + 15 + 'px';
     var topLoc = screenMouse.y + 2 + 'px';
+    if (IsTouchDevice) {
+        leftLoc = screenMouse.x - 50 + 'px';
+        topLoc = screenMouse.y - 100 + 'px';
+    }
 
     function moveCursor(e) {
         if (!e) {
@@ -138,27 +144,27 @@ function DeactivateCursorText() {
     $('#cursorText').text("");
 }
 
-
 function UpdateCursor() {
-    if (screenChanging === false) {
-        if (drawMode.indexOf("Volume") !== -1 || drawMode.indexOf("Void") !== -1) {
-            $('#div_3dCanvas').css('cursor', 'crosshair');
-            control.enabled = false;
-        } else if (drawMode == "Delete") {
-            $('#div_3dCanvas').css('cursor', 'pointer');
-        } else {
-            control.enabled = true;
-            if (ObjOnClicked) {
-                $('#div_3dCanvas').css('cursor', 'move');
+        if (screenChanging === false) {
+            if (drawMode.indexOf("Volume") !== -1 || drawMode.indexOf("Void") !== -1) {
+                $('#div_3dCanvas').css('cursor', 'crosshair');
+                control.enabled = false;
+            } else if (drawMode == "Delete") {
+                $('#div_3dCanvas').css('cursor', 'pointer');
             } else {
-                if (ObjOnHovering) {
-                    $('#div_3dCanvas').css('cursor', 'pointer');
+                control.enabled = true;
+                if (ObjOnClicked) {
+                    $('#div_3dCanvas').css('cursor', 'move');
                 } else {
-                    $('#div_3dCanvas').css('cursor', 'default');
+                    if (ObjOnHovering) {
+                        $('#div_3dCanvas').css('cursor', 'pointer');
+                    } else {
+                        $('#div_3dCanvas').css('cursor', 'default');
+                    }
                 }
             }
         }
-    }
+    
 }
 
 function ResetSceneMouse3dDownCondition() {
@@ -166,7 +172,7 @@ function ResetSceneMouse3dDownCondition() {
     lastSceneMouse3dRightDn = new THREE.Vector3(0, 0, 0);
     lastSceneMouse3dLeftUp = new THREE.Vector3(0, 0, 0);
 }
-//check if I can fix this...
+
 function IsClickedAtDifferentLocationInXYPlane(clickedNow, lastClicked, detectTol) {
     if (Math.abs(clickedNow.x - lastClicked.x) > detectTol || Math.abs(clickedNow.y - lastClicked.y) > detectTol || Math.abs(clickedNow.z - lastClicked.z) > detectTol) {
         return true;
@@ -232,6 +238,7 @@ function onDocumentTouchMove(event) {
 
         //drag
         if (ObjOnClicked) {
+            control.enabled = false;
             var mouseIntersect_OffsetPlane = getIntersectionAtScreenCoordinatesBy(clientX, clientY, ObjDragPlane);
             if (mouseIntersect_OffsetPlane) {
                 var tempPt = mouseIntersect_OffsetPlane.point.sub(ObjDragOffset);
@@ -300,7 +307,6 @@ function onDocumentMouseMove(event) {
         }
     }
 }
-
 
 function onDocumentTouchStart(event) {
     if (event.touches.length === 1) {
@@ -379,9 +385,9 @@ function onDocumentMouseDown(event) {
 }
 
 function onDocumentTouchEnd(event) {
-    if (event.touches.length === 1) {
-        var clientX = event.touches[0].pageX;
-        var clientY = event.touches[0].pageY;
+    if (event.changedTouches.length === 1) {
+        var clientX = event.changedTouches[0].pageX;
+        var clientY = event.changedTouches[0].pageY;
         screenMouse.x = clientX;
         screenMouse.y = clientY;
 
@@ -403,7 +409,10 @@ function onDocumentTouchEnd(event) {
             SetObjDefaultMaterial(ObjOnClicked);
             //drag
             ObjOnClicked = null;
+            control.enabled = true;
         }
+
+        mouseMoved = false;
     }
 }
 
@@ -422,6 +431,8 @@ function onDocumentMouseUp(event) {
             ObjOnClicked = null;
         }
     }
+
+    mouseMoved = false;
 }
 
 function is_touch_device() {
