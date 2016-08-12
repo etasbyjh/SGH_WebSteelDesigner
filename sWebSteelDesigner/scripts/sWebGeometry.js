@@ -161,6 +161,7 @@ SGH_RecDrawingAid.prototype.UpdateDrawingAid = function (hoveringPointIn, clicke
             newPositionY = hoveringPoint.y;
             newPositionZ = hoveringPoint.z;
             //this.GetDrawingBoundaryMesh.visible = false;
+ 
             UpdateCursorText(null, null, 0);
 
         } else if (this.clickedPoints.length == 1) {
@@ -210,7 +211,13 @@ SGH_RecDrawingAid.prototype.UpdateDrawingAid = function (hoveringPointIn, clicke
         this.drawingBoundaryMesh.scale.y = Math.abs(deltaY);
         this.drawingBoundaryMesh.scale.z = Math.abs(deltaZ);
 
-
+        //if (mouseMoved) {
+        //    this.drawingBoundaryMesh.position.copy(newPosition);
+        //}
+        //else {
+        //    this.drawingBoundaryMesh.position.copy(new THREE.Vector3(0, 0, 0));
+        //    this.drawingPoint.position.copy(new THREE.Vector3(0, 0, 0));
+        //}
         this.drawingBoundaryMesh.position.copy(newPosition);
         this.drawingBoundaryLines.update(this.drawingBoundaryMesh);
 

@@ -58,19 +58,14 @@ var receivedData;
 
 $(document).ready(function () {
     IsTouchDevice = is_touch_device();
-    console.log(IsTouchDevice);
 
     Initiate3DView();
 
     setTimeout(ActivateClientInfo, 1000);
-
-    
-    
     ActivateUIs();
     UpdateSceneInfo();
 
-    UpdateValuesFromButtons(true, true);
-    UpdateValuesFromSliders();
+
 
     //3d control
     $('#drawVol').click(function () {
@@ -83,12 +78,18 @@ $(document).ready(function () {
 
     $('#delete').click(function () {
         drawMode = "Delete";
+        TouchRemoveIconControl(true);
         $(this).addClass('yellow').addClass('scaledUP');
         $(document).keydown(function (e) {
             if (e.keyCode == 27) { //esc
                 $('#delete').removeClass('yellow').removeClass('scaledUP');
             }
         })
+        $('#exitDrawMode').click(function () {
+            TouchRemoveIconControl(false);
+            $('#delete').removeClass('yellow').removeClass('scaledUP');
+        })
+
         UpdateSceneHistory("Select Object To Delete");
     })
 
@@ -431,6 +432,7 @@ function UpdateSceneInfo() {
 }
 
 function ActivateUIs() {
+    AdaptiveIconEffects();
 
        $('#touchUI').hide();
         if (IsTouchDevice) {
@@ -470,6 +472,9 @@ function ActivateUIs() {
 
     $('.accordion').accordion();
     $('.dropdown').dropdown();
+
+    UpdateValuesFromButtons(true, true);
+    UpdateValuesFromSliders();
 }
 
 function ShowToolTips() {
@@ -510,3 +515,39 @@ function ajaxFailed(xmlRequest) {
         xmlRequest.statusText + '\n\r' +
         xmlRequest.responseText);
 }
+
+function AdaptiveIconEffects() {
+    if (IsTouchDevice) { // remove all :hover stylesheets
+        try { // prevent exception on browsers not supporting DOM styleSheets properly
+            for (var si in document.styleSheets) {
+                var styleSheet = document.styleSheets[si];
+                if (!styleSheet.rules) continue;
+
+                for (var ri = styleSheet.rules.length - 1; ri >= 0; ri--) {
+                    if (!styleSheet.rules[ri].selectorText) continue;
+
+                    if (styleSheet.rules[ri].selectorText.match(':hover')) {
+                        styleSheet.deleteRule(ri);
+                    }
+                }
+            }
+        } catch (ex) { }
+    }
+    else {
+        try { // prevent exception on browsers not supporting DOM styleSheets properly
+            for (var si in document.styleSheets) {
+                var styleSheet = document.styleSheets[si];
+                if (!styleSheet.rules) continue;
+
+                for (var ri = styleSheet.rules.length - 1; ri >= 0; ri--) {
+                    if (!styleSheet.rules[ri].selectorText) continue;
+
+                    if (styleSheet.rules[ri].selectorText.match(':active')) {
+                        styleSheet.deleteRule(ri);
+                    }
+                }
+            }
+        } catch (ex) { }
+    }
+}
+

@@ -22,6 +22,15 @@ var verticalObjects = [];
 var gui;
 var sprite;
 
+function renderScene() {
+    UpdateView();
+
+    requestAnimationFrame(renderScene);
+
+    control.update();
+    renderer.render(scene, camera);
+}
+
 function UpdateView() {
 
     UpdateGridState();
@@ -34,23 +43,16 @@ function UpdateView() {
         if (drawMode == "Delete") {
             RemoveObjFromScene(ObjOnClicked);
             $('#delete').removeClass('yellow').removeClass('scaledUP');
+            TouchRemoveIconControl(false);
 
             ObjOnHovering = null;
+            ObjOnClicked = null; //????????
             drawMode = "View";
         } else {
             SetObjHighlightedMaterial(ObjOnClicked);
         }
         //console.log(ObjOnClicked.userData.name);
     }
-}
-
-function renderScene() {
-    UpdateView();
-
-    requestAnimationFrame(renderScene);
-
-    control.update();
-    renderer.render(scene, camera);
 }
 
 function Initiate3DView() {

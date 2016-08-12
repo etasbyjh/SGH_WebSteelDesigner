@@ -61,7 +61,7 @@ html {
     width: 96%;
     height: 8%;
     position: fixed;
-    bottom: 13%;
+    bottom: 15%;
 }
 #SceneSetIcon,
 #EngineerSetIcon,
@@ -75,10 +75,10 @@ html {
 #receive,
 #rightLogoImage,
 #exitDrawMode {
-    -webkit-transition: all 0.5s ease-in-out;
-    -moz-transition: all 0.5s ease-in-out;
-    -ms-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -ms-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
 }
 
 #SceneSetIcon:hover,
@@ -94,6 +94,19 @@ html {
 #rightLogoImage:hover {
     -webkit-transform: scale(1.2);
     cursor: pointer;
+}
+#SceneSetIcon:active,
+#EngineerSetIcon:active,
+#ArchSetIcon:active,
+#CostSetIcon:active,
+#drawVol:active,
+#drawVoid:active,
+#delete:active,
+#receive:active,
+#objectInfo:active,
+#send:active,
+#rightLogoImage:active {
+    -webkit-transform: scale(0.8);
 }
 #rightLogo {
     width: 42px;
