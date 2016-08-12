@@ -33,6 +33,7 @@ function SGH_RecDrawingAid(threeScene, type) {
 function DrawingBoxesInScene() {
     if (drawMode == "Volume" || drawMode == "Void") {
 
+
         var clickedLoc;
         if (IsTouchDevice) {
             clickedLoc = lastSceneMouse3dLeftUp;
@@ -66,6 +67,7 @@ function InitiateRecDrawingAid(ThreeScene, drawModeIn) {
 
             DeactivateCursorText();
             TouchRemoveIconControl(false);
+            ResetSceneMouse3dDownCondition();
             //UpdateSceneHistory("Canceled: Drawing " + drawModeIn);
         }
     });
@@ -76,6 +78,7 @@ function InitiateRecDrawingAid(ThreeScene, drawModeIn) {
 
         DeactivateCursorText();
         TouchRemoveIconControl(false);
+        ResetSceneMouse3dDownCondition();
     });
 }
 
@@ -113,6 +116,7 @@ SGH_RecDrawingAid.prototype.FinalizeDrawing = function (type, threeScene) {
 
     UpdateSceneHistory(type + ' Added, (X:' + this.drawingBoundaryMesh.scale.x + sceneUnit + ' Y:' + this.drawingBoundaryMesh.scale.z + sceneUnit + ' Z:' + this.drawingBoundaryMesh.scale.y + sceneUnit + ')');
     TouchRemoveIconControl(false);
+    ResetSceneMouse3dDownCondition();
 }
 
 SGH_RecDrawingAid.prototype.UpdateDrawingAid = function (hoveringPointIn, clickedPointIn, verticalRef, threeScene) {

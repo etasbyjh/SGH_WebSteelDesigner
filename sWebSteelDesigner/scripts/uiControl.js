@@ -97,6 +97,10 @@ function UpdateCursorText(xOverride, zOverride, yOverride, threeObj) {
     var mz = Math.round(-1 * sceneMouse3d_ground.z, 1);
     var my = Math.round(sceneMouse3d_Vertical.y, 1);
 
+    if (mouseMoved) {
+
+    }
+
     if (xOverride != null) {
         mx = xOverride;
     }
@@ -238,6 +242,7 @@ function onDocumentTouchMove(event) {
 
         //drag
         if (ObjOnClicked) {
+
             control.enabled = false;
             var mouseIntersect_OffsetPlane = getIntersectionAtScreenCoordinatesBy(clientX, clientY, ObjDragPlane);
             if (mouseIntersect_OffsetPlane) {

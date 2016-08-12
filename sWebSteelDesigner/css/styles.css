@@ -80,6 +80,7 @@ html {
     -ms-transition: all 0.5s ease-in-out;
     -o-transition: all 0.5s ease-in-out;
 }
+
 #SceneSetIcon:hover,
 #EngineerSetIcon:hover,
 #ArchSetIcon:hover,

@@ -123,6 +123,7 @@
     <Content Include="css\range.css" />
     <Content Include="css\styles.css" />
     <Content Include="index.html" />
+    <Content Include="netReferences\sJsonHandler.dll" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
